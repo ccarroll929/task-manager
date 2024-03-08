@@ -2,48 +2,38 @@ const {Model, DataTypes} = require('sequelize');
 const sequelize          = require('../config/connection');
 
 // Create Project model and datatypes, including the user_id foreign key.
-class User extends Model {}
+class Task extends Model {}
 
-User.init(
+Task.init(
 	{
-		id:           {
+		id:             {
 			type:          DataTypes.INTEGER,
 			allowNull:     false,
 			primaryKey:    true,
 			autoIncrement: true
 		},
-		first_name: {
-			type:      DataTypes.STRING,
-			allowNull: false,
-			validate: {
-				isAlpha: true
-			}
-		},
-		last_name: {
-			type:      DataTypes.STRING,
-			allowNull: false,
-			validate: {
-				isAlpha: true
-			}
-		},
-		password: {
+		name:           {
 			type:      DataTypes.STRING,
 			allowNull: false
 		},
-		username:         {
-			type:      DataTypes.STRING,
-			allowNull: false
+		description:    {
+			type: DataTypes.STRING
 		},
-		email:        {
-			type: DataTypes.STRING,
-			validate: {
-				isEmail: true
-			}
-		},
-		date_created: {
+		date_created:   {
 			type:         DataTypes.DATE,
 			allowNull:    false,
 			defaultValue: DataTypes.NOW
+		},
+		notes: {
+			type:      DataTypes.TEXT,
+			allowNull: true
+		},
+		user_id:        {
+			type:       DataTypes.INTEGER,
+			references: {
+				model: 'user',
+				key:   'id'
+			}
 		}
 	},
 	{
@@ -55,4 +45,4 @@ User.init(
 	}
 );
 
-module.exports = User;
+module.exports = Task;
