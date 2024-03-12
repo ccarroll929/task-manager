@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task Tracker</title>
+  <link rel="stylesheet" href="../../public/css/style.css">
+  <link rel="stylesheet" href="../../public/css/jass.css">
+  <link rel="icon" href="">
+</head>
+<body>
+    <nav>
+        <!-- Conditionally render login or logout links -->
+        {{#if logged_in}}
+        <button class="no-button" id="logout">logout</button>
+        {{else}}
+        <a href="/login">login</a>
+        {{/if}}
+    </nav>
+</headers>
+<main class="container container-fluid mt-5">
+{{{body}}}
+</main>
+<!-- Render script for logged in users only -->
+{{#if logged_in}}
+  <script src="/js/logout.js"></script>
+{{/if}}
+</body>
+</html>
