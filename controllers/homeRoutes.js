@@ -1,15 +1,11 @@
-const router = require('express').Router();
-const { User, Post, Tiles, Comment } = require('../models');
-
 // Handles all routes for the homepage 
+const router = require('express').Router();
+const { User, Task } = require('../models'); // MAY NEED TO ADD MORE LATER
 
-// Import Models
-
-
-// GET all Tiles for homepage
+// GET all Tasks for homepage
 router.get('/', async (req, res) => {
     try {
-        const dbTilesData = await Tiles.findAll({
+        const dbTasksData = await Task.findAll({
             include: [
                 {
                     model: User,
@@ -18,10 +14,10 @@ router.get('/', async (req, res) => {
             ],
         });
 
-        const tiles = dbTilesData.map((tile) => tile.get({ plain: true }));
+        const tasks = dbTasksData.map((task) => task.get({ plain: true }));
 
         res.render('homepage', {
-            tiles,
+            tasks,
             loggedIn: req.session.loggedIn,
         });
     } catch (err) {
@@ -30,10 +26,10 @@ router.get('/', async (req, res) => {
     }
 });
 
-// GET singleTile page
-router.get('/singleTile/:id', async (req, res) => {
+// GET singleTask page
+router.get('/singleTask/:id', async (req, res) => {
     try {
-    const dbTilesData = await Tiles.findByPk(req.params.id, {
+    const dbTasksData = await Task.findByPk(req.params.id, {
         include: [
             {
                 model: User,
@@ -42,10 +38,10 @@ router.get('/singleTile/:id', async (req, res) => {
         ],
     });
 
-    const tile = dbTilesData.get({ plain: true });
+    const task = dbTasksData.get({ plain: true });
 
-    res.render('singleTile', {
-            tile,
+    res.render('singleTask', {
+            task,
             loggedIn: req.session.loggedIn,
         });
     } catch (err) {
@@ -54,10 +50,10 @@ router.get('/singleTile/:id', async (req, res) => {
     }
 });
 
-// GET editTile page
-router.get('/editTile/:id', async (req, res) => {
+// GET editTask page
+router.get('/editTask/:id', async (req, res) => {
     try {
-        const dbTilesData = await Tiles.findByPk(req.params.id, {
+        const dbTasksData = await Task.findByPk(req.params.id, {
         include: [
             {
                 model: User,
@@ -66,10 +62,10 @@ router.get('/editTile/:id', async (req, res) => {
         ],
     });
 
-    const tile = dbTilesData.get({ plain: true });
+    const task = dbTasksData.get({ plain: true });
 
-    res.render('editTile', {
-        tile,
+    res.render('editTask', {
+        task,
         loggedIn: req.session.loggedIn,
     });
     } catch (err) {
