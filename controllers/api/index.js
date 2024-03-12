@@ -2,12 +2,12 @@
 const router = require('express').Router();
 
 // Import required modules
-const page1 = require('./Page1');
-const page2 = require('./Page2');
+const allTasks = require('./allTasks');
+const singleTask = require('./singleTask');
 
 // Setup routes
-router.use('/page1', page1);
-router.use('/page2', page2);
+router.use('/allTasks', allTasks);
+router.use('/singleTask', singleTask);
 
 // Export the router
 module.exports = router;
