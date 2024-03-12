@@ -71,14 +71,10 @@ process.on('uncaughtException', (err) => {
 
 /**
  * Function to handle the server exit gracefully.
- *
- * @param {number} code - An optional exit code, defaults to 0
  */
-// function handleExit(code = 0) {
 function handleExit() {
 	server.close(() => {
 		console.log('\nServer closed');
-		// process.exit(code);
 		process.exit();
 	});
 }
