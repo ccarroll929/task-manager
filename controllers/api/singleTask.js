@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Task, User } = require('../../models');
-const withAuth = require('../../utils/auth');
+// const withAuth = require('../../utils/auth');
 
 // GET singleTask page
 router.get('/:id', async (req, res) => {
@@ -24,7 +24,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Create a new Task
-router.post('/', withAuth, async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const newTask = await Task.create({
             ...req.body,
@@ -39,7 +39,7 @@ router.post('/', withAuth, async (req, res) => {
 });
 
 // Update a Task
-router.put('/:id', withAuth, async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
         const updatedTask = await Task.update(req.body, {
             where: {
@@ -55,7 +55,7 @@ router.put('/:id', withAuth, async (req, res) => {
 });
 
 // Delete a Task
-router.delete('/:id', withAuth, async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
         const deletedTask = await Task.destroy({
             where: {
@@ -71,7 +71,7 @@ router.delete('/:id', withAuth, async (req, res) => {
 });
 
 // Add a comment to a Task
-router.post('/comment', withAuth, async (req, res) => {
+router.post('/comment', async (req, res) => {
     try {
         const newComment = await Comment.create({
             ...req.body,
@@ -86,7 +86,7 @@ router.post('/comment', withAuth, async (req, res) => {
 });
 
 // Update a comment
-router.put('/comment/:id', withAuth, async (req, res) => {
+router.put('/comment/:id', async (req, res) => {
     try {
         const updatedComment = await Comment.update(req.body, {
             where: {
@@ -102,7 +102,7 @@ router.put('/comment/:id', withAuth, async (req, res) => {
 });
 
 // Delete a comment
-router.delete('/comment/:id', withAuth, async (req, res) => {
+router.delete('/comment/:id', async (req, res) => {
     try {
         const deletedComment = await Comment.destroy({
             where: {
