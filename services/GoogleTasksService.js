@@ -22,3 +22,5 @@ class GoogleTasksService {
 
 	}
 }
+
+module.exports = GoogleTasksService;

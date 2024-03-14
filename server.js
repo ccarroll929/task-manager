@@ -21,11 +21,14 @@ const hbs        = handlebars.create({});
 // Set up the application port
 const PORT = process.env.PORT || 3000;
 
+const redis  = require('redis');
+const GTasks = require('./services/GoogleTasksService');
+
 // Database and session management
 const sequelize      = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 // Set up sessions with cookies
-const sess = {
+const sess           = {
 	secret:            process.env.SESSION_SECRET,
 	cookie:            {
 		httpOnly: true,
