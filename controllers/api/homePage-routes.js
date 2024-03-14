@@ -1,7 +1,7 @@
 // Create routes for the Page1 API
 const router = require('express').Router();
 const { Task, User } = require('../../models');
-const withAuth = require('../../utils/auth');
+// const withAuth = require('../../utils/helper');
 
 //  GET all Tasks for homepage
 router.get('/', async (req, res) => {
@@ -46,7 +46,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Create a new Task
-router.post('/', withAuth, async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const newTask = await Task.create({
             ...req.body,
@@ -61,7 +61,7 @@ router.post('/', withAuth, async (req, res) => {
 });
 
 // Update a Task
-router.put('/:id', withAuth, async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
         const updatedTask = await Task.update(req.body, {
             where: {
@@ -77,7 +77,7 @@ router.put('/:id', withAuth, async (req, res) => {
 });
 
 // Delete a Task
-router.delete('/:id', withAuth, async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
         const deletedTask = await Task.destroy({
             where: {
