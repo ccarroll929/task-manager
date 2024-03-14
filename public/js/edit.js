@@ -18,10 +18,10 @@ const editHandler = async (event) => {
         headers: {'Content-Type': 'application/json'},
     });
     if (response.ok) {
-        document.location.replace('/dashboard/');
+        document.location.replace('/homepage/');
     } else {
         alert("Something went wrong!");
     }
 };
 
-document.querySelector('.edit-form').addEventListener('submit', editHandler);
+document.getElementById('edit-form').addEventListener('submit', editHandler);

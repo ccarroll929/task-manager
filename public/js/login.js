@@ -14,10 +14,10 @@ const loginFormHandler = async (event) => {
     });
 
     if (response.ok) {
-        document.location.replace('/dashboard'); 
+        document.location.replace('/homepage/'); 
     } else {
         alert('Something went wrong!')
     }
 };
 
-document.querySelector('#login-form').addEventListener('submit', loginFormHandler);
+document.querySelector('#login').addEventListener('submit', loginFormHandler);
