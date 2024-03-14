@@ -21,4 +21,4 @@ const newtaskFormHandler = async (event) => {
     }
 };
 
-document.querySelector('#newtask-form').addEventListener('submit', newtaskFormHandler);
+document.querySelector('#newtask').addEventListener('submit', newtaskFormHandler);
