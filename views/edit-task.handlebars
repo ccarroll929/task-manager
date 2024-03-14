@@ -9,15 +9,15 @@
 
     <div class="form-group">
         <label for="task-desc">Additional Notes</label>
-        <input type="text" class="form-input" id="task-desc" name="task-desc">
-      </div>
+        <input type="text" class="form-input" id="task-desc" name="task-desc" value="{{task.description}}">
+    </div>
 
     <div class="form-group">
     <label for="task-progress">Task Progress Status</label>
     <select id="task-progress" name="task-progress">
-        <option class ="emoji-neutral" name="task-content" value="{{task.content}}">Not started</option>
-        <option class = "emoji-smile" name="task-content" value="{{task.content}}">In progress</option>
-        <option class ="emoji-laughing" name="task-content" value="{{task.content}}">Complete</option>
+        <option class ="emoji-neutral" name="task-status" value="{{task.status}}">Not started</option>
+        <option class = "emoji-smile" name="task-status" value="{{task.status}}">In progress</option>
+        <option class ="emoji-laughing" name="task-status" value="{{task.status}}">Complete</option>
     </select>
     <input type="submit">
     </div>

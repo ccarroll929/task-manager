@@ -31,7 +31,8 @@ const paths = {
 		await sequelize.close();
 		console.log('\n----- DATABASE CONNECTION CLOSED -----\n');
 	} catch (error) {
-		console.log('\n-----ERROR SEEDED -----\n');
+		console.log('\n----- ERROR SEEDING -----\n');
+		console.log(error);
 	} finally {
 		process.exit();
 	}
