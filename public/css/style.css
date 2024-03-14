@@ -6,6 +6,7 @@ body {
     background-color: rgb(52, 52, 56);
 }
 
+/* Main.handlebars */ 
 header {
     display: flex;
     justify-content: center; 
@@ -47,25 +48,6 @@ h1 {
     padding: 20px; 
 }
 
-#logout {
-    font-size: 25px; 
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    margin: 10px;
-    padding: 5px; 
-    border-style: solid;
-    border-color:rgb(25, 215, 229);
-    border-width: 4px;
-    border-radius: 10px;
-}
-
-#logout, a {
-    text-decoration: none; 
-    color: black; 
-}
-
-#logout, a:hover {
-    color: rgb(204, 1, 255); 
-}
 .main-button {
     font-size: 25px; 
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -103,30 +85,58 @@ h3, h4 {
     margin-top: 20px; 
 }
 
-/*homepage.handlebars styling */
-.card {
-    display: flex; 
-    flex-flow: column-wrap; 
-    justify-content: center; 
-    width: 400px;
-    background-color: rgb(255, 255, 255); 
-}
-.card-header {
-    background-color:rgb(163, 8, 202);
-    color: white; 
+#logout {
+    font-size: 25px; 
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 10px;
+    padding: 5px; 
+    border-style: solid;
+    border-color:rgb(25, 215, 229);
+    border-width: 4px;
+    border-radius: 10px;
 }
 
-.card-title {
-    text-align: center; 
-    font-size: 28px; 
-    padding: 5px; 
-    color:rgb(0, 0, 0);
+#logout, a {
+    text-decoration: none; 
+    color: black; 
 }
+
+#logout, a:hover {
+    color: rgb(204, 1, 255); 
+}
+
+/* homepage.handlebars styling */
+.task-container {
+    display: flex;
+    flex-direction: column; 
+    border-style: solid; 
+    border-width: 6px; 
+    border-color:rgb(25, 215, 229);
+    border-radius: 1%; 
+    margin: 3em; 
+}
+
 #homepage-header {
     color: white; 
     font-weight: lighter; 
     text-align: center; 
 }
+
+.card-header {
+    font-size: 24px; 
+}
+
+.card {
+    border-radius: 0.5%; 
+}
+.card-title {
+    text-align: center; 
+    font-size: 28px; 
+    padding: 10px; 
+    color: white;
+    background-color:rgb(52, 52, 56);
+}
+
 
 .btn-container {
     display: flex; 
@@ -135,9 +145,10 @@ h3, h4 {
     text-align: start; 
     padding: 5px;
     font-size: 20px;
+    background-color:rgb(52, 52, 56); 
 }
 
-#newtask {
+.homepage-button {
     margin-bottom: 2px; 
     border-radius: 10px; 
     color: black;
@@ -155,25 +166,101 @@ h3, h4 {
     color:rgb(204, 1, 255);
 }
 
-#newtask {
-    color:rgba(16, 191, 0, 0.817);
+.btn-container a { 
+    text-decoration: none; 
+    color: black;
 }
 
-#del-task-btn {
-    color:rgb(255, 7, 7)
-}
-
-h2 {
-    font-size: 32px; 
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-weight: lighter; 
+#a-add-btn:hover, #add-btn:hover {
+    color:rgb(204, 1, 255);
 }
 
 p {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 22px; 
+    color: white; 
 }
 
+/* Login and signup styling */
+.row  h2 {
+    color:rgb(255, 255, 255); 
+    font-size: 26px; 
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: lighter; 
+    margin-top: 20px; 
+    margin-left: 20px; 
+}
+
+.form-group { 
+    color: white; 
+}
+
+.container {
+    text-align: left; 
+    margin-left: 10px; 
+}
+
+.container .form-container {
+    display: inline-block; 
+}
+
+.container form .form-group {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap; 
+}
+
+.container form .form-group label {
+    padding: 2px;
+    text-align: left; 
+}
+
+.container form .form-group input,
+.container form .form-group #form-text {
+    align-self: flex-start; 
+
+}
+
+.form-label {
+    font-size: 22px;  
+}
+
+.form-text {
+    color: white; 
+    font-size: 18px; 
+}
+
+.form-input {
+    margin-top: 10px; 
+}
+
+#login-link {
+    color:rgb(25, 215, 229); 
+    font-size: 24px; 
+    text-decoration: underline; 
+    margin-left: 10px; 
+}
+
+#login-link:hover{
+    color:rgb(255, 255, 255);
+}
+
+#login, #signup {
+    background-color: white; 
+    border-color:rgb(25, 215, 229); 
+    border-width: 3px; 
+    color:rgb(57, 57, 59);
+    font-size: 18px;  
+    font-weight: bold; 
+    margin-top: 10px;
+}
+
+#login:hover, #signup:hover{
+    background-color:rgb(179, 0, 255);
+    border-color: white; 
+    border-width: 2px; 
+    color: white;
+}
 /* Bubbles */
 .wrapper div {
     height: 60px;
