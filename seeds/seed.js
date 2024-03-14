@@ -1,8 +1,8 @@
 // Required libraries
 const fs        = require('fs').promises;
 const sequelize = require('../config/connection');
-const Task      = require('../models/Task');
 const User      = require('../models/User');
+const Task      = require('../models/Task');
 
 // File paths
 const paths = {
