@@ -1,5 +1,5 @@
 // Import Routes
-const router = express.Router();
+const router = require('express').Router();
 const apiRoutes = require('./api/index');
 const mainRoutes = require('./mainPage.js');
 
