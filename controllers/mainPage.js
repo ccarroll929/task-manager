@@ -1,7 +1,7 @@
 // Handles all routes for the homepage 
 const router = require('express').Router();
 const { User } = require('../models'); // MAY NEED TO ADD MORE LATER
-const helpers = require('../utils/helpers');
+// const helpers = require('../utils/helpers');
 
 // SignUp for new user
 router.post('/signup', async (req, res) => {
@@ -11,6 +11,7 @@ router.post('/signup', async (req, res) => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
       res.status(200).json(userData);
+      res.redirect('/'); // Add this line to redirect back to main page
     });
   } catch (err) {
     res.status(400).json(err);
@@ -34,21 +35,11 @@ router.post('/login', async (req, res) => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
       res.json({ user: userData, message: 'You are now logged in!' });
+      res.redirect('./api/homePage-routes.js'); 
     });
   } catch (err) {
     res.status(400).json(err);
   }
-});
-
-// Logout for user
-router.post('/logout', (req, res) => {
-    if (req.session.logged_in) {
-        req.session.destroy(() => {
-            res.redirect('/');
-        });
-    } else {
-        res.status(404).end();
-    }
 });
 
 module.exports = router;
