@@ -30,6 +30,7 @@ const tasks              = new GoogleTasksService(redis);
 // Database and session management
 const sequelize      = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
 // Set up sessions with cookies
 const sess           = {
 	secret:            process.env.SESSION_SECRET,
