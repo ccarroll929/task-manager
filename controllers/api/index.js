@@ -5,6 +5,7 @@ const router = require('express').Router();
 
 const mainPage = require('../mainPage.js');
 const editTask = require('./editTask-routes.js');
+const homepage = require('./homepage-routes.js');
 const login    = require('./login-routes.js');
 const newTask  = require('./newTask-routes.js');
 const signup   = require('./signup-routes.js');
