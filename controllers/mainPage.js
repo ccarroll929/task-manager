@@ -3,6 +3,15 @@ const router = require('express').Router();
 const { User } = require('../models'); // MAY NEED TO ADD MORE LATER
 // const helpers = require('../utils/helpers');
 
+// Route to get homepage
+router.get('/', async (req, res) => {
+  try {
+    res.render('homepage');
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // SignUp for new user
 router.post('/signup', async (req, res) => {
   try {
