@@ -21,8 +21,11 @@ const hbs        = handlebars.create({});
 // Set up the application port
 const PORT = process.env.PORT || 3000;
 
-const redis  = require('redis');
-const GTasks = require('./services/GoogleTasksService');
+// Redis and Google Tasks
+const {RedisCache}         = require('redis');
+const {GoogleTasksService} = require('./services/GoogleTasksService');
+const redis                = null; //new RedisCache();
+const tasks                = new GoogleTasksService(redis);
 
 // Database and session management
 const sequelize      = require('./config/connection');
@@ -47,7 +50,9 @@ app.engine('handlebars', hbs.engine)
 	// Set the views and data directories
    .set('view engine', 'handlebars')
    .set('views', dirs.views)
-   .set('data', dirs.data)
+   .set('redis', redis)
+   .set('tasks', tasks)
+
 	// Use sessions, parse JSON, serve static files and include routes.
    .use(session(sess))
    .use(express.json())
