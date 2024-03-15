@@ -5,7 +5,7 @@ const path = require('path');
 require('dotenv').config();
 const express = require('express');
 const routes  = require('./controllers');
-const session = require('express-sessions');
+const session = require('express-session');
 
 // Directory definitions
 const dirs = {
