@@ -1,11 +1,12 @@
 const {google} = require('googleapis');
+// Object being passed can be found here: https://developers.google.com/tasks/reference/rest/v1/tasks#Task
 
 /**
  * GoogleTasksService handles operations with the Google Tasks API.
  */
 class GoogleTasksService {
 	cache;
-	tasks;
+	client;
 
 	/**
 	 * Constructor for GoogleTasksService.
@@ -21,10 +22,31 @@ class GoogleTasksService {
 				                                        'https://www.googleapis.com/auth/tasks.readonly'
 			                                        ]
 		                                        });
-		// this.tasks points to the Google Tasks API client.
-		this.tasks = google.tasks({version: 'v1', auth: auth});
+		// this.client points to the Google Tasks API client.
+		this.client = google.tasks({version: 'v1', auth: auth});
 	}
 
+	/**
+	 * Mark a task as completed in Google Tasks
+	 *
+	 * @param {string} taskListId - The ID of the task list containing the task.
+	 * @param {string} taskId - The ID of the task to mark as completed.
+	 * @throws Will throw an error if the request fails.
+	 * @return {object} - The updated task data.
+	 */
+	async completeTask(taskListId, taskId) {
+		try {
+			const response = await this.client.tasks.update({
+				                                               tasklist: taskListId,
+				                                               task: taskId,
+				                                               resource: { status: 'completed', 'completed': new Date().toISOString() }
+			                                               });
+			return response.data;
+		} catch (error) {
+			console.error('GoogleTasksService:completeTask - Error:', error);
+			throw error;
+		}
+	}
 	/**
 	 * Create a task on Google Tasks.
 	 *
@@ -35,7 +57,7 @@ class GoogleTasksService {
 	 */
 	async createTask(taskListId, task) {
 		try {
-			const response = await this.tasks.tasks.insert({
+			const response = await this.client.tasks.insert({
 				                                               tasklist: taskListId,
 				                                               resource: task
 			                                               });
@@ -55,12 +77,33 @@ class GoogleTasksService {
 	 */
 	async deleteTask(taskListId, taskId) {
 		try {
-			await this.tasks.tasks.delete({
+			await this.client.tasks.delete({
 				                              tasklist: taskListId,
 				                              task:     taskId
 			                              });
 		} catch (error) {
 			console.error('GoogleTasksService:deleteTask - Error:', error);
+			throw error;
+		}
+	}
+
+	/**
+	 * Get a specific task from a task list in Google Tasks.
+	 *
+	 * @param {string} taskListId - The ID of the task list containing the task.
+	 * @param {string} taskId - The ID of the task to retrieve.
+	 * @throws Will throw an error if the request fails.
+	 * @return {object} - The task data.
+	 */
+	async getTask(taskListId, taskId) {
+		try {
+			const response = await this.client.tasks.get({
+				                                            tasklist: taskListId,
+				                                            task: taskId
+			                                            });
+			return response.data;
+		} catch (error) {
+			console.error('GoogleTasksService:getTask - Error:', error);
 			throw error;
 		}
 	}
@@ -72,14 +115,38 @@ class GoogleTasksService {
 	 * @throws Will throw an error if the request fails.
 	 * @return {Array} - Array of task items from the specified task list.
 	 */
-	async getTasks(taskListId) {
+	async listTasks(taskListId) {
 		try {
-			const response = await this.tasks.tasks.list({
+			const response = await this.client.tasks.list({
 				                                             tasklist: taskListId
 			                                             });
 			return response.data.items;
 		} catch (error) {
 			console.error('GoogleTasksService:getTasks - Error:', error);
+			throw error;
+		}
+	}
+
+	/**
+	 * Update an existing task in Google Tasks.
+	 *
+	 * @param {string} taskListId - The ID of the task list containing the task to be updated.
+	 * @param {string} taskId - The ID of the task to be updated.
+	 * @param {object} task - The updated task object, which must comply with the Google Tasks API.
+	 *               This could contain properties like {'title', 'notes', 'due', 'completed'} to be updated for the task.
+	 * @throws Will throw an error if the request fails.
+	 * @return {object} - The updated task data.
+	 */
+	async updateTask(taskListId, taskId, task) {
+		try {
+			const response = await this.client.tasks.update({
+				                                               tasklist: taskListId,
+				                                               task: taskId,
+				                                               resource: task
+			                                               });
+			return response.data;
+		} catch (error) {
+			console.error('GoogleTasksService:updateTask - Error:', error);
 			throw error;
 		}
 	}
