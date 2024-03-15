@@ -2,13 +2,15 @@ const newtaskFormHandler = async (event) => {
     event.preventDefault();
 
     const title = document.querySelector('input[name="task-title"]').value;
-    const content = document.querySelector('textarea[name="task-content"]').value;
+    const description = document.querySelector('input[name="task-description"]').value; 
+    const status = document.querySelector('textarea[name="task-status"]').value;
 
     const response = await fetch('/api/task', {
         method: 'task',
         body: JSON.stringify({
             title,
-            content,
+            description,
+            status
         }),
         headers: { 'Content-Type': 'application/json' },
     });
@@ -19,4 +21,4 @@ const newtaskFormHandler = async (event) => {
     }
 };
 
-document.querySelector('#newtask-form').addEventListener('submit', newtaskFormHandler);
+document.querySelector('#newtask').addEventListener('submit', newtaskFormHandler);

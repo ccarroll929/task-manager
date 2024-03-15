@@ -1,0 +1,72 @@
+[
+	{
+		"title": "Find the One Ring",
+		"body": "Task to locate the One Ring and ensure it remains hidden from Sauron.",
+		"user_id": 1,
+		"createdAt": "2024-03-20T10:00:00.000Z",
+		"updatedAt": "2024-03-20T10:00:00.000Z"
+	},
+	{
+		"title": "Journey to Rivendell",
+		"body": "Travel with the hobbits to Rivendell for the council meeting.",
+		"user_id": 1,
+		"createdAt": "2024-03-21T10:00:00.000Z",
+		"updatedAt": "2024-03-21T10:00:00.000Z"
+	},
+	{
+		"title": "Form the Fellowship",
+		"body": "Gather a group of allies to form the Fellowship of the Ring.",
+		"user_id": 3,
+		"createdAt": "2024-03-22T10:00:00.000Z",
+		"updatedAt": "2024-03-22T10:00:00.000Z"
+	},
+	{
+		"title": "Travel to Mordor",
+		"body": "Lead the Fellowship towards Mordor to destroy the One Ring.",
+		"user_id": 3,
+		"createdAt": "2024-03-23T10:00:00.000Z",
+		"updatedAt": "2024-03-23T10:00:00.000Z"
+	},
+	{
+		"title": "Battle at Helm's Deep",
+		"body": "Prepare the defenses and lead the forces of Rohan against Saruman's army.",
+		"user_id": 2,
+		"createdAt": "2024-03-24T10:00:00.000Z",
+		"updatedAt": "2024-03-24T10:00:00.000Z"
+	},
+	{
+		"title": "Secure the Shire",
+		"body": "Ensure the Shire is protected from the threats of the outside world.",
+		"user_id": 2,
+		"createdAt": "2024-03-25T10:00:00.000Z",
+		"updatedAt": "2024-03-25T10:00:00.000Z"
+	},
+	{
+		"title": "Scout the Paths of the Dead",
+		"body": "Gather intelligence on the Paths of the Dead and report any unusual activities.",
+		"user_id": 4,
+		"createdAt": "2024-03-26T10:00:00.000Z",
+		"updatedAt": "2024-03-26T10:00:00.000Z"
+	},
+	{
+		"title": "Forge New Alliances",
+		"body": "Reach out to potential allies in distant lands to strengthen our position against Sauron.",
+		"user_id": 5,
+		"createdAt": "2024-03-27T10:00:00.000Z",
+		"updatedAt": "2024-03-27T10:00:00.000Z"
+	},
+	{
+		"title": "Reforge the Sword",
+		"body": "Oversee the reforging of Narsil, the sword that cut the One Ring from Sauron's hand.",
+		"user_id": 5,
+		"createdAt": "2024-03-28T10:00:00.000Z",
+		"updatedAt": "2024-03-28T10:00:00.000Z"
+	},
+	{
+		"title": "Gather Herbs for Healing",
+		"body": "Collect athelas and other healing herbs to aid the wounded after battles.",
+		"user_id": 5,
+		"createdAt": "2024-03-29T10:00:00.000Z",
+		"updatedAt": "2024-03-29T10:00:00.000Z"
+	}
+]

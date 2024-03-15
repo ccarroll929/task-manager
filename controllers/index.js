@@ -1,11 +1,11 @@
 // Import Routes
 const router = require('express').Router();
-const apiRoutes = require('./api');
-const homeroutes = require('./home-routes.js');
+const apiRoutes = require('./api/index');
+const mainRoutes = require('./mainPage.js');
 
 //Setup middleware
 router.use('/api', apiRoutes);
-router.use('/', homeroutes);
+router.use('/', mainRoutes);
 
 // Export Routes
 module.exports = router;

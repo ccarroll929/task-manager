@@ -1,4 +1,4 @@
-const delButton = document.querySelector('#del-task-btn');
+const delButton = document.getElementById('#del-task-btn');
 const taskId = document.querySelector('input[name="task-id"]').value;
 
 const deleteHandler = async () => {
