@@ -46,5 +46,16 @@ router.get('/newTask', async (req, res) => {
   }
 });
 
+// Logout for user and redirect to mainPage.js
+router.post('../mainPage.js', (req, res) => {
+    if (req.session.logged_in) {
+        req.session.destroy(() => {
+            res.redirect('/');
+        });
+    } else {
+        res.status(404).end();
+    }
+});
+
 
 module.exports = router;
