@@ -1,9 +1,9 @@
 // Handles all routes for the homepage 
 const router = require('express').Router();
 const { User } = require('../models'); // MAY NEED TO ADD MORE LATER
-// const helpers = require('../utils/helpers');
+const helpers = require('../utils/helpers');
 
-// Route to get homepage
+// Route to get mainPage
 router.get('/', async (req, res) => {
   try {
     res.render('mainPage');
@@ -12,43 +12,61 @@ router.get('/', async (req, res) => {
   }
 });
 
-// SignUp for new user
-// router.post('/signup', async (req, res) => {
-//   try {
-//     const userData = await User.create(req.body);
-//     req.session.save(() => {
-//       req.session.user_id = userData.id;
-//       req.session.logged_in = true;
-//       res.status(200).json(userData);
-//       res.redirect('/'); // Add this line to redirect back to main page
-//     });
-//   } catch (err) {
-//     res.status(400).json(err);
-//   }
-// });
+// Route to Homepage once logged in
+router.get('/homepage', async (req, res) => {
+  try {
+    res.render('hompage');
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
-// // Login for existing user
-// router.post('/login', async (req, res) => {
-//   try {
-//     const userData = await User.findOne({ where: { email: req.body.email } });
-//     if (!userData) {
-//       res.status(400).json({ message: 'Incorrect email or password, please try again' });
-//       return;
-//     }
-//     const validPassword = await userData.checkPassword(req.body.password);
-//     if (!validPassword) {
-//       res.status(400).json({ message: 'Incorrect email or password, please try again' });
-//       return;
-//     }
-//     req.session.save(() => {
-//       req.session.user_id = userData.id;
-//       req.session.logged_in = true;
-//       res.json({ user: userData, message: 'You are now logged in!' });
-//       res.redirect('./api/homePage-routes.js'); 
-//     });
-//   } catch (err) {
-//     res.status(400).json(err);
-//   }
-// });
+// Login
+router.get('/login', (req, res) => {
+  if (req.session.loggedIn) {
+      res.redirect('/');
+      return;
+  }
+  res.render('login');
+});
+
+// Signup
+router.get('/signup', async (req, res) => {
+  try {
+    res.render('signup');
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+
+router.post('/logout', (req, res) => {
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
+  }
+});
+
+router.get('/newTask', async (req, res) => {
+  try {
+    res.render('newTask');
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+
+router.get('/editTask', async (req, res) => {
+  try {
+    res.render('editTask');
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+
 
 module.exports = router;
