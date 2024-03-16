@@ -51,9 +51,9 @@ app.engine('handlebars', hbs.engine)
 	// Set the views and data directories
    .set('view engine', 'handlebars')
    .set('views', dirs.views)
+   .set('data', dirs.data)
    .set('redis', redis)
    .set('tasks', tasks)
-
 	// Use sessions, parse JSON, serve static files and include routes.
    .use(session(sess))
    .use(express.json())
