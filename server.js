@@ -48,6 +48,9 @@ app.engine('handlebars', hbs.engine)
    .set('view engine', 'handlebars')
    .set('views', dirs.views)
    .set('data', dirs.data)
+   .get('/', (req, res) => {
+	res.render('mainPage')
+})
 	// Use sessions, parse JSON, serve static files and include routes.
    .use(session(sess))
    .use(express.json())
