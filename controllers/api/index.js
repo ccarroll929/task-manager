@@ -3,11 +3,11 @@ const router = require('express').Router();
 
 // Import required modules
 const mainPage = require('./mainPage-routes.js');
-const editTask = require('./editTask-routes.js'); 
-const homepage = require('./homePage-routes.js'); 
-const login    = require('./login-routes.js'); 
-const newTask  = require('./newTask-routes.js'); 
-const signup   = require('./signup-routes.js'); 
+const editTask = require('./editTask-routes.js');
+const homepage = require('./homePage-routes.js');
+const login    = require('./login-routes.js');
+const newTask  = require('./newTask-routes.js');
+const signup   = require('./signup-routes.js');
 
 // Setup routes
 router.use('/', mainPage);
