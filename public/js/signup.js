@@ -13,7 +13,10 @@ const signupFormHandler = async (event) => {
         headers: { 'Content-Type': 'application/json' },
     });
     if (response.ok) {
-        document.location.replace('/');
+        const data = await response.json();
+
+        // If the response includes a "redirect" property, redirect to that URL.
+        if (data.redirect) window.location = data.redirect;
     } else {
         alert('Something wrong!');
     }

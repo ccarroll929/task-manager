@@ -13,3 +13,5 @@ User.hasMany(Task, {
 	foreignKey: 'user_id',
 	onDelete:   'CASCADE'
 });
+// Export the modules
+module.exports = { User, Task };

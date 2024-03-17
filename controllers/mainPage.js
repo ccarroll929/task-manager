@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 // Route to Homepage once logged in
 router.get('/homepage', async (req, res) => {
   try {
-    res.render('hompage');
+    res.render('homepage');
   } catch (err) {
     res.status(500).json(err);
   }
