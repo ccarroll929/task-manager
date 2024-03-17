@@ -1,32 +1,22 @@
 [
 	{
-		"first_name": "Frodo",
-		"last_name": "Baggins",
-		"email": "frodo.baggins@shire.com",
+		"username": "frodo.baggins",
 		"password": "ringBearer123"
 	},
 	{
-		"first_name": "Samwise",
-		"last_name": "Gamgee",
-		"email": "samwise.gamgee@shire.com",
+		"username": "samwise.gamgee",
 		"password": "loyalSam456"
 	},
 	{
-		"first_name": "Gandalf",
-		"last_name": "TheGrey",
-		"email": "gandalf.thegrey@middleearth.com",
+		"username": "gandalf.thegrey",
 		"password": "wizard789"
 	},
 	{
-		"first_name": "Legolas",
-		"last_name": "Greenleaf",
-		"email": "legolas.greenleaf@mirkwood.com",
+		"username": "legolas.greenleaf",
 		"password": "archer101112"
 	},
 	{
-		"first_name": "Aragorn",
-		"last_name": "Elessar",
-		"email": "aragorn.elessar@gondor.com",
+		"username": "aragorn.elessar",
 		"password": "king131415"
 	}
 ]

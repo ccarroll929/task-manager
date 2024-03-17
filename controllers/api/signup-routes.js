@@ -16,10 +16,11 @@ router.post('/', async (req, res) => {
 			return res.status(200).json({
 				                            user:     userData,
 				                            message:  'Signup successful',
-				                            redirect: '/mainPage'
+				                            redirect: '/homePage'
 			                            });
 		});
 	} catch (err) {
+		console.log(err);
 		res.status(400).json(err);
 	}
 });

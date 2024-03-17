@@ -39,29 +39,13 @@ User.init({
 		          primaryKey:    true,
 		          autoIncrement: true
 	          },
-	          // First Name
-	          first_name: {
-		          type:      DataTypes.STRING,
-		          allowNull: false,
-		          validate:  {
-			          isAlpha: true
-		          }
-	          },
-	          // Last Name
-	          last_name: {
-		          type:      DataTypes.STRING,
-		          allowNull: false,
-		          validate:  {
-			          isAlpha: true
-		          }
-	          },
-	          // Email
-	          email: {
+	          // Username
+	          username: {
 		          type:      DataTypes.STRING,
 		          allowNull: false,
 		          unique:    true,
 		          validate:  {
-			          isEmail: true
+			          isAlphanumeric: true
 		          }
 	          },
 	          // Password
@@ -79,6 +63,7 @@ User.init({
 	          hooks:           {
 		          // Before creating the entry, make sure that the user's password is encrypted
 		          beforeCreate: async (userData) => {
+					  console.log('Updated Password');
 			          // Hash user password
 			          userData.password = await User.hashPassword(userData.password);
 			          return userData;
