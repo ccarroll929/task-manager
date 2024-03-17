@@ -30,6 +30,7 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
+
 // Signup
 router.get('/signup', async (req, res) => {
   try {
@@ -50,22 +51,22 @@ router.post('/logout', (req, res) => {
   }
 });
 
-router.get('/newTask', async (req, res) => {
-  try {
-    res.render('newTask');
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+// router.get('/newTask', async (req, res) => {
+//   try {
+//     res.render('newTask');
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 
-router.get('/editTask', async (req, res) => {
-  try {
-    res.render('editTask');
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+// router.get('/editTask', async (req, res) => {
+//   try {
+//     res.render('editTask');
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 
 
