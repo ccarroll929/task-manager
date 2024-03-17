@@ -15,8 +15,9 @@ const signupFormHandler = async (event) => {
     if (response.ok) {
         const data = await response.json();
 
-        // If the response includes a "redirect" property, redirect to that URL.
-        if (data.redirect) window.location = data.redirect;
+        if (data) {
+            document.location.replace('/api/login');
+        }
     } else {
         alert('Something wrong!');
     }

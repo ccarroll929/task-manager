@@ -1,12 +1,14 @@
 const newtaskFormHandler = async (event) => {
     event.preventDefault();
 
+    // Getting values from user input
     const title = document.querySelector('input[name="task-title"]').value;
     const description = document.querySelector('input[name="task-description"]').value; 
-    const status = document.querySelector('textarea[name="task-status"]').value;
+    const status = document.querySelector('option[name="task-status"]').value;
 
-    const response = await fetch('/api/task', {
-        method: 'task',
+    // Makes a POST request to /newTask with task title, desc, status
+    const response = await fetch('/api/newTask', {
+        method: 'POST',
         body: JSON.stringify({
             title,
             description,
@@ -14,11 +16,13 @@ const newtaskFormHandler = async (event) => {
         }),
         headers: { 'Content-Type': 'application/json' },
     });
+    // If POST request is successful, take user back to homepage with task list
     if (response.ok) {
-        document.location.replace('/dashboard');
+        document.location.replace('/api/homepage');
     } else {
         alert('Something wrong!');
     }
 };
 
-document.querySelector('#newtask').addEventListener('submit', newtaskFormHandler);
+// Event handler
+document.querySelector('#newtask-form').addEventListener('submit', newtaskFormHandler);

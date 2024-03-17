@@ -5,8 +5,9 @@
     </div>
 <br>
 <div class="btn-container">                      
-    <button class="homepage-button" id="newtask" type="submit" class="btn"><a href="/homepage/new" id="a-add-btn"><i class="bi bi-plus-square"></i> Add Task</a></button>
+    <button class="homepage-button" id="newtask" type="submit" class="btn"><a href="/api/newTask" id="a-add-btn"><i class="bi bi-plus-square"></i> Add Task</a></button>
 </div>
+<!-- If the user has a task list, their tasks will be displayed here-->
 {{#if tasks.length}}
 {{#each tasks as |task|}}
 <div class="task-container">
@@ -14,13 +15,14 @@
     <div class="card">
         <h2 class="card-title"><span>{{username}}</span>'s Task List</h2>
         <div class="card-header">
-            <a class="link" href="/task/{{task.id}}">{{task.title}}</a>
+            <a class="link" href="/editTask/{{task.id}}">{{task.title}}</a>
         </div>
     </div>   
 </div>
 </section>
 {{/each}}   
 {{/if}}
+<!-- Bubbles! -->
 <div class="wrapper">
         <div><span class="dot"></span></div>
         <div><span class="dot"></span></div>
@@ -32,5 +34,4 @@
         <div><span class="dot"></span></div>
         <div><span class="dot"></span></div>
         </div>
-<script src="js/deletetask.js"></script>
 
