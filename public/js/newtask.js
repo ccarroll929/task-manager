@@ -18,7 +18,7 @@ const newtaskFormHandler = async (event) => {
     });
     // If POST request is successful, take user back to homepage with task list
     if (response.ok) {
-        document.location.replace('/api/homepage');
+        document.location.replace('/homepage');
     } else {
         alert('Something wrong!');
     }

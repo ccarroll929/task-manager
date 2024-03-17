@@ -19,7 +19,7 @@ const editHandler = async (event) => {
     });
     // If edited task has valid inputs, return user to hompage
     if (response.ok) {
-        document.location.replace('/api/homepage');
+        document.location.replace('/homepage');
     } else {
         alert("Something went wrong!");
     }
