@@ -1,8 +1,10 @@
+// Function to logout user
 const logoutHandler = async () => {
-    const response = await fetch ('/login', {
+    const response = await fetch ('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
     });
+    // If successful, return user to mainpage
     if (response.ok) {
         document.location.replace('/');
         alert ('You have logged out!')
@@ -10,5 +12,5 @@ const logoutHandler = async () => {
         alert ('Failed to log out!')
     }
 };
-
+// Event handler for logout
 document.getElementById('logout').addEventListener('click', logoutHandler);
