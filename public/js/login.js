@@ -4,7 +4,7 @@ const loginFormHandler = async (event) => {
     const usernameEl = document.querySelector("#username-login");
     const passwordEl = document.querySelector("#password-login");
 
-    const response = await fetch ('/login', {
+    const response = await fetch ('/api/login', {
         method: 'POST',
         body: JSON.stringify({
             username: usernameEl.value,
@@ -14,10 +14,13 @@ const loginFormHandler = async (event) => {
     });
 
     if (response.ok) {
-        document.location.replace('/homepage'); 
+        const data = await response.json();
+
+        // If the response includes a "redirect" property, redirect to that URL.
+        if (data.redirect) window.location = data.redirect;
     } else {
         alert('Something went wrong!')
     }
 };
 
-document.querySelector('#login').addEventListener('submit', loginFormHandler);
+document.querySelector('#login-form').addEventListener('submit', loginFormHandler);
