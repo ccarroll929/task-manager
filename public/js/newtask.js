@@ -26,7 +26,7 @@ const newtaskFormHandler = async (event) => {
 
 async function fetchTasks() {
     try {
-      const response = await fetch('/tasks');
+      const response = await fetch('/api/task');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
