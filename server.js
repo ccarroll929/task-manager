@@ -52,8 +52,6 @@ app.engine('handlebars', hbs.engine)
    .set('view engine', 'handlebars')
    .set('views', dirs.views)
    .set('data', dirs.data)
-   .set('redis', redis)
-   .set('googleTasks', googleTasks)
 	// Use sessions, parse JSON, serve static files and include routes.
    .use(session(sess))
    .use(express.json())
