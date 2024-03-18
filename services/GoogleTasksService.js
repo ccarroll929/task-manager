@@ -1,7 +1,4 @@
 const {google}     = require('googleapis');
-const {data, data} = require('express-session/session/cookie');
-const {response}   = require('express');
-const {JSON}       = require('sequelize');
 
 // Object being passed can be found here: https://developers.google.com/tasks/reference/rest/v1/tasks#Task
 
@@ -294,7 +291,6 @@ class GoogleTasksService {
 
 			for (const task of taskListIds) {
 				const response = await this.deleteTaskList(task);
-				console.log(response);
 			}
 			// For each task list, call the deleteTaskList method.
 		} catch (error) {

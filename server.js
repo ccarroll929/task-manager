@@ -22,7 +22,7 @@ const hbs        = handlebars.create({});
 const PORT = process.env.PORT || 3000;
 
 // Redis and Google Tasks
-const RedisCache         = require('redis');
+const RedisCache         = require('./utils/redis');
 const GoogleTasksService = require('./services/GoogleTasksService');
 const redis              = new RedisCache();
 const googleTasks        = new GoogleTasksService(redis);
