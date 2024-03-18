@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
         await axios.post(googleTasksUrl, googleTasksPayload);
 
         res.status(200).json(newTask);
-        res.redirect('/mainPage.js'); // redirect to mainPage.js
+        res.redirect('/homePage'); // redirect to mainPage.js
     } catch (err) {
         res.status(400).json(err);
     }
@@ -48,17 +48,17 @@ client.on('connect', async () => {
     });
 });
 
-// Create new task
-router.post('/', async (req, res) => {
-    try {
-        const newTask = await Task.create({
-            ...req.body,
-            user_id: req.session.user_id,
-        });
+// // Create new task
+// router.post('/', async (req, res) => {
+//     try {
+//         const newTask = await Task.create({
+//             ...req.body,
+//             user_id: req.session.user_id,
+//         });
 
-        res.status(200).json(newTask);
-        res.redirect('/mainPage.js'); // redirect to mainPage.js
-    } catch (err) {
-        res.status(400).json(err);
-    }
-});
+//         res.status(200).json(newTask);
+//         res.redirect('/mainPage.js'); // redirect to mainPage.js
+//     } catch (err) {
+//         res.status(400).json(err);
+//     }
+// });
