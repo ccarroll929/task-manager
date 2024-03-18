@@ -19,85 +19,86 @@ router.get('/', (req, res) => {
 
 // SignUp for new user
 router.post('/signup', async (req, res) => {
-	try {
-		// Check if the request body contains the required fields
-		if (!req.body.username || !req.body.password) {
-			return res.status(400).json({message: 'Username and password are required'});
-		}
+	      try {
+		      // Check if the request body contains the required fields
+		      if (!req.body.username || !req.body.password) {
+			      return res.status(400).json({message: 'Username and password are required'});
+		      }
 
-		// Create the user with the provided data
-		const userData = await User.create(req.body);
+		      // Create the user with the provided data
+		      const userData = await User.create(req.body);
 
-		// Assuming userData has the password field, sanitize it before sending the response
-		const sanitizedUserData = {...userData.toJSON()};
-		delete sanitizedUserData.password;
+		      // Assuming userData has the password field, sanitize it before sending the response
+		      const sanitizedUserData = {...userData.toJSON()};
+		      delete sanitizedUserData.password;
 
-		// Save session data
-		req.session.user_id   = userData.id;
-		req.session.logged_in = true;
-		req.session.user      = sanitizedUserData;
+		      // Save session data
+		      req.session.user_id   = userData.id;
+		      req.session.logged_in = true;
+		      req.session.user      = sanitizedUserData;
 
-		// Create a new Task List
-		// TODO: Finish this
-		// googleTasks.createTaskList(req.session.user.username);
+		      // Create a new Task List
+		      // TODO: Finish this
+		      // googleTasks.createTaskList(req.session.user.username);
 
-		// Respond with success message and user data
-		return res.status(200).json({
-			                            user:     sanitizedUserData,
-			                            message:  'Signup successful',
-			                            redirect: '/homepage'
-		                            });
-	} catch (err) {
-		// Log and handle errors
-		console.log(err);
-		return res.status(400).json({error: err.message || 'An error occurred'});
-	}
-});
+		      // Respond with success message and user data
+		      return res.status(200).json({
+			                                  user:     sanitizedUserData,
+			                                  message:  'Signup successful',
+			                                  redirect: '/homepage'
+		                                  });
+	      } catch (err) {
+		      // Log and handle errors
+		      console.log(err);
+		      return res.status(400).json({error: err.message || 'An error occurred'});
+	      }
+      })
 
-// Login for existing user
-router.post('/login', async (req, res) => {
-	try {
-		const userData = await User.findOne({where: {username: req.body.username}});
-		if (!userData) {
-			res.status(400).json({message: 'Incorrect email or password, please try again'});
-			return;
-		}
-		const validPassword = await userData.checkPassword(req.body.password);
-		if (!validPassword) {
-			res.status(400).json({message: 'Incorrect email or password, please try again'});
-			return;
-		}
+	// Login for existing user
+	  .post('/login', async (req, res) => {
+		  console.log(req.body);
+		  try {
+			  const userData = await User.findOne({where: {username: req.body.username}});
+			  if (!userData) {
+				  console.log('User does not exist');
+				  res.status(400).json({message: 'Incorrect email or password, please try again'});
+				  return;
+			  }
+			  const validPassword = await userData.checkPassword(req.body.password);
+			  if (!validPassword) {
+				  console.log('Incorrect password and try again');
+				  res.status(400).json({message: 'Incorrect email or password, please try again'});
+				  return;
+			  }
 
-		req.session.save(() => {
-			req.session.user_id   = userData.id;
-			req.session.logged_in = true;
+			  req.session.save(() => {
+				  req.session.user_id   = userData.id;
+				  req.session.logged_in = true;
 
-			// Save the user data in the session, and sanitize the password for sending the user data to the browser.
-			req.session.user = userData;
-			delete userData.dataValues.password;
-			// Upon successful login, inform the user they've been successfully logged in, and forward them to the
-			// homepage.
-			return res.status(200).json({
-				                            userData: userData,
-				                            message:  'Login successful',
-				                            redirect: '/homepage'
-			                            });
-		});
-	} catch (err) {
-		console.log(err);
-		res.status(400).json(err);
-	}
-});
-
-// // Logout for user and redirect to mainPage.js
-// router.post('./mainPage-routes.js', (req, res) => {
-//     if (req.session.logged_in) {
-//         req.session.destroy(() => {
-//             res.redirect('/');
-//         });
-//     } else {
-//         res.status(404).end();
-//     }
-// });
+				  // Save the user data in the session, and sanitize the password for sending the user data to the
+				  // browser.
+				  req.session.user = userData;
+				  delete userData.dataValues.password;
+				  // Upon successful login, inform the user they've been successfully logged in, and forward them to the
+				  // homepage.
+				  return res.status(200).json({
+					                              userData: userData,
+					                              message:  'Login successful',
+					                              redirect: '/homepage'
+				                              });
+			  });
+		  } catch (err) {
+			  console.log(err);
+			  res.status(400).json(err);
+		  }
+	  })
+	  .get('/logout', (req, res) => {
+		  req.session.destroy(() => {
+			  res.status(200).json({
+				                       message:  'Logout successful',
+				                       redirect: '/'
+			                       });
+		  });
+	  });
 
 module.exports = router;
