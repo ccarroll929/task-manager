@@ -268,6 +268,7 @@ class GoogleTasksService {
 					                                                    title: newTitle
 				                                                    }
 			                                                    });
+			// Return response
 			return response.data;
 		} catch (error) {
 			console.error('GoogleTasksService:updateTaskList - Error:', error);
