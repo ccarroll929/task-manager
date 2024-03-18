@@ -1,17 +1,14 @@
 *{
     box-sizing: border-box; 
 }
-
 body {
     background-color: rgb(52, 52, 56);
 }
-
 /* Main.handlebars */ 
 header {
     display: flex;
     justify-content: center; 
 }
-
 h1 {
     color: rgb(0, 0, 0);
     text-shadow: rgb(242, 99, 255) 2px 2px;
@@ -21,7 +18,6 @@ h1 {
     font-weight: lighter; 
     padding: 5px; 
 }
-
 #banner {
     height: 175px;
     width: 185px; 
@@ -31,14 +27,12 @@ h1 {
     margin-left: 25px; 
 }
 
-
 .flex-container {
     display: flex;
     flex-flow: column-wrap; 
     justify-content: center; 
     margin-top: 5%;
 }
-
 .logo {
     background-color: rgb(25, 215, 229);
     border-style: solid;
@@ -47,7 +41,6 @@ h1 {
     border-color: rgb(204, 1, 255);
     padding: 20px; 
 }
-
 .main-button {
     font-size: 25px; 
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -58,7 +51,6 @@ h1 {
     border-width: 4px;
     border-radius: 10px;
 }
-
 .main-button {
     text-decoration: none; 
     color: black; 
@@ -66,16 +58,13 @@ h1 {
 .main-button:hover {
     color: rgb(204, 1, 255); 
 }
-
 span {
     color: rgb(25, 215, 229);
 }
-
 #octotask {
     color:rgb(218, 71, 255); 
     font-weight: bold; 
 }
-
 h3, h4 {
     text-align: center; 
     color: white; 
@@ -84,7 +73,6 @@ h3, h4 {
     font-weight: lighter; 
     margin-top: 20px; 
 }
-
 #logoutbtn {
     font-size: 25px; 
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -95,19 +83,18 @@ h3, h4 {
     border-width: 4px;
     border-radius: 10px;
 }
-
 #logoutbtn, a {
     text-decoration: none; 
     color: black; 
 }
-
 #logout, a:hover {
     color: rgb(204, 1, 255); 
 }
-
 /* homepage.handlebars styling */
 .task-container {
     display: flex;
+    color: black; 
+    justify-content: center; 
     flex-direction: column; 
     border-style: solid; 
     border-width: 6px; 
@@ -115,17 +102,56 @@ h3, h4 {
     border-radius: 1%; 
     margin: 3em; 
 }
+.task-flex-container {
+    display: flex;
+    justify-content: center; 
+    flex-direction: column; 
+    color: black; 
+    font-size: 22px;
+    border-style: solid; 
+    border-width: 6px; 
+    border-color:rgb(25, 215, 229);
+    border-radius: 1%; 
+    margin-left: 25%;
+    margin-right: 15%; 
+}
+.taskform-group { 
+    color: black; 
+    text-align: center; 
+}
+.newtask-container form .taskform-group {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap; 
+}
+.newtask-container form .taskform-group label {
+    padding: 2px;
+    text-align: center; 
+}
+.newtask-container form .taskform-group input,
+.newtask-container form .taskform-group #taskform-input {
+    align-self: flex-start; 
+    margin-top: 2%; 
+}
+#newtask {
+    font-size: 22px; 
+}
+#newtask:hover {
+    color:rgb(204, 1, 255); 
+}
+.taskform-label {
+    font-size: 22px;  
+}
 
 #homepage-header {
     color: white; 
     font-weight: lighter; 
     text-align: center; 
 }
-
 .card-header {
     font-size: 24px; 
+    color:rgb(218, 71, 255);
 }
-
 .card {
     border-radius: 0.5%; 
 }
@@ -137,7 +163,6 @@ h3, h4 {
     background-color:rgb(52, 52, 56);
 }
 
-
 .btn-container {
     display: flex; 
     flex-flow: row; 
@@ -147,13 +172,11 @@ h3, h4 {
     font-size: 20px;
     background-color:rgb(52, 52, 56); 
 }
-
 .homepage-button {
     margin-bottom: 2px; 
     border-radius: 10px; 
     color: black;
 }
-
 .link {
     text-decoration: none; 
     list-style: none; 
@@ -161,26 +184,21 @@ h3, h4 {
     font-size: 26px; 
     color: black; 
 }
-
 .link:hover {
     color:rgb(204, 1, 255);
 }
-
 .btn-container a { 
     text-decoration: none; 
     color: black;
 }
-
 #a-add-btn:hover, #add-btn:hover {
     color:rgb(204, 1, 255);
 }
-
 p {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 22px; 
     color: white; 
 }
-
 /* Login and signup styling */
 .row  h2 {
     color:rgb(255, 255, 255); 
@@ -190,7 +208,6 @@ p {
     margin-top: 20px; 
     margin-left: 20px; 
 }
-
 #login, #signup {
     font-size: 20px; 
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -202,7 +219,6 @@ p {
     border-width: 4px;
     border-radius: 10px;
 }
-
 #login, #signup {
     text-decoration: none; 
     color: black; 
@@ -210,7 +226,6 @@ p {
 #login:hover, #signup:hover {
     color: rgb(204, 1, 255); 
 }
-
 #error-message {
     font-size: 14px;
     color: white; 
@@ -218,73 +233,45 @@ p {
 .form-group { 
     color: white; 
 }
-
 .container {
     text-align: left; 
     margin-left: 10px; 
 }
-
 .container .form-container {
     display: inline-block; 
 }
-
 .container form .form-group {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap; 
 }
-
 .container form .form-group label {
     padding: 2px;
     text-align: left; 
 }
-
 .container form .form-group input,
 .container form .form-group #form-text {
     align-self: flex-start; 
-
 }
-
 .form-label {
     font-size: 22px;  
 }
-
 .form-text {
     color: white; 
     font-size: 18px; 
 }
-
 .form-input {
     margin-top: 10px; 
 }
-
 #login-link {
     color:rgb(25, 215, 229); 
     font-size: 24px; 
     text-decoration: underline; 
     margin-left: 10px; 
 }
-
 #login-link:hover{
     color:rgb(255, 255, 255);
 }
-
-/* #login #signup {
-    background-color: white; 
-    border-color:rgb(25, 215, 229); 
-    border-width: 3px; 
-    color:rgb(57, 57, 59);
-    font-size: 18px;  
-    font-weight: bold; 
-    margin-top: 10px;
-}
-
-#login:hover #signup:hover{
-    background-color:rgb(179, 0, 255);
-    border-color: white; 
-    border-width: 2px; 
-    color: white;
-} */
 /* Bubbles */
 .wrapper div {
     height: 60px;
@@ -296,7 +283,6 @@ p {
     left: 10%;
     animation: animate 4s linear infinite; 
 }
-
 div .dot {
     height: 10px;
     width: 10px;
@@ -306,55 +292,46 @@ div .dot {
     top: 20%;
     right: 20%; 
 }
-
 .wrapper div:nth-child(1){
     top: 20%;
     left: 80%;
     animation: animate 5s linear infinite; 
 }
-
 .wrapper div:nth-child(8){
     top: 10%;
     left: 85%;
     animation: animate 5s linear infinite; 
 }
-
 .wrapper div:nth-child(2){
     top: 85%;
     left: 80%;
     animation: animate 4s linear infinite; 
 }
-
 .wrapper div:nth-child(3){
     top: 40%;
     left: 1%;
     animation: animate 5s linear infinite; 
 }
-
 .wrapper div:nth-child(4){
     top: 70%;
     left: 5%;
     animation: animate 4s linear infinite; 
 }
-
 .wrapper div:nth-child(5){
     top: 95%;
     left: 50%;
     animation: animate 5s linear infinite; 
 }
-
 .wrapper div:nth-child(6){
     top: 40%;
     left: 90%;
     animation: animate 4s linear infinite; 
 }
-
 .wrapper div:nth-child(7){
     top: 85%;
     left: 20%;
     animation: animate 5s linear infinite; 
 }
-
 
 
 @keyframes animate {
