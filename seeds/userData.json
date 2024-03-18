@@ -1,22 +1,22 @@
 [
 	{
-		"username": "frodo.baggins",
+		"username": "frodobaggins",
 		"password": "ringBearer123"
 	},
 	{
-		"username": "samwise.gamgee",
+		"username": "samwisegamgee",
 		"password": "loyalSam456"
 	},
 	{
-		"username": "gandalf.thegrey",
+		"username": "gandalfthegrey",
 		"password": "wizard789"
 	},
 	{
-		"username": "legolas.greenleaf",
+		"username": "legolasgreenleaf",
 		"password": "archer101112"
 	},
 	{
-		"username": "aragorn.elessar",
+		"username": "aragornelessar",
 		"password": "king131415"
 	}
 ]
