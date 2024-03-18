@@ -1,7 +1,7 @@
 // Handles all routes for the homepage 
 const router = require('express').Router();
-// const { User } = require('../models'); PRETTY SURE WE DON'T NEED THIS, AS THIS FILE JUST HANDLES ROUTES FROM THE LANDING PAGE 
-// const helpers = require('../utils/helpers'); // PRETTY SURE WE DON'T NEED THIS, AS THIS FILE JUST HANDLES ROUTES FROM THE LANDING PAGE
+const { User } = require('../models'); // PRETTY SURE WE DON'T NEED THIS, AS THIS FILE JUST HANDLES ROUTES FROM THE LANDING PAGE 
+const helpers = require('../utils/helpers'); // PRETTY SURE WE DON'T NEED THIS, AS THIS FILE JUST HANDLES ROUTES FROM THE LANDING PAGE
 
 // Route to get mainPage
 router.get('/', async (req, res) => {
@@ -41,33 +41,15 @@ router.get('/signup', async (req, res) => {
 });
 
 
-router.post('/logout', (req, res) => {
-  if (req.session.logged_in) {
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
-  } else {
-    res.status(404).end();
-  }
-});
-
-// router.get('/newTask', async (req, res) => {
-//   try {
-//     res.render('newTask');
-//   } catch (err) {
-//     res.status(500).json(err);
+// router.post('/logout', (req, res) => {
+//   if (req.session.logged_in) {
+//     req.session.destroy(() => {
+//       res.status(204).end();
+//     });
+//   } else {
+//     res.status(404).end();
 //   }
 // });
 
-
-// router.get('/editTask', async (req, res) => {
-//   try {
-//     res.render('editTask');
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
-
-
-
+// Export the router
 module.exports = router;
