@@ -6,8 +6,8 @@ const userRoutes = require('./user-routes.js');
 const taskRoutes = require('./task-routes.js');
 
 // Setup routes
-router.use('/user-routes', userRoutes);
-router.use('/task-routes', taskRoutes);
+router.use('/user', userRoutes);
+router.use('/task', taskRoutes);
 
 // Export the router
 module.exports = router;

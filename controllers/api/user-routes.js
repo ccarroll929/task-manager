@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 );
 
 // SignUp for new user
-router.post('/', async (req, res) => {
+router.post('/signup', async (req, res) => {
 	try {
 		// Check if the request body contains the required fields
 		if (!req.body.username || !req.body.password) {
@@ -55,8 +55,7 @@ router.post('/', async (req, res) => {
 });
 
 // Login for existing user
-router.post('/', async (req, res) => {
-	console.log('Checking', req.body);
+router.post('/login', async (req, res) => {
 	try {
 		const userData = await User.findOne({where: {username: req.body.username}});
 		if (!userData) {
