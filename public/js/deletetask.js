@@ -4,7 +4,7 @@ const taskId = document.querySelector('input[name="task-id"]').value;
 
 // Function to delete a task 
 const deleteHandler = async () => {
-    const response = await fetch(`/api/task-routes/${taskId}`, {
+    const response = await fetch(`/api/task/${taskId}`, {
         method: 'DELETE'
     });
 // Return user to homepage after deletion 

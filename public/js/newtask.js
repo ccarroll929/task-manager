@@ -7,7 +7,7 @@ const newtaskFormHandler = async (event) => {
     const status = document.querySelector('option[name="task-status"]').value;
 
     // Makes a POST request to /newTask with task title, desc, status
-    const response = await fetch('/api/task-routes', {
+    const response = await fetch('/api/task', {
         method: 'POST',
         body: JSON.stringify({
             title,

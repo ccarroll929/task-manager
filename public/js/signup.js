@@ -22,7 +22,7 @@ const signupFormHandler = async (event) => {
         return; 
     }
 
-    const response = await fetch('/api/user-routes', {
+    const response = await fetch('/api/user/signup', {
         method: 'POST',
         body: JSON.stringify({
             username,
