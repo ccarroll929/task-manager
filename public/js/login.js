@@ -7,12 +7,19 @@ const loginFormHandler = async (event) => {
     const password = document.querySelector("#password-login");
     const errorMessage = document.querySelector('#error-message');
 
+       // If username and/or password fields are empty, display an error message for the user
+    if (username === '' || password === '') {
+        errorMessage.textContent = '*Please enter both username and password.';
+        return;
+    }
+
+    if (username && password) {
     // POST request with user login
-    const response = await fetch ('/api/login', {
+    const response = await fetch ('/api/user-routes', {
         method: 'POST',
         body: JSON.stringify({
-            username: username.value,
-            password: password.value,
+            username,
+            password
         }),
         headers: { 'Content-Type': 'application/json' },
     });
@@ -26,6 +33,6 @@ const loginFormHandler = async (event) => {
         }
         alert('Something went wrong!')
     }
-};
+}};
 
 document.querySelector('#login-form').addEventListener('submit', loginFormHandler);
