@@ -2,7 +2,7 @@
     <h2 class="card-header">Add New Task</h2>
 
 <!-- Form to create a new task -->
-<form class="card-body" id="newpost-form">
+<form class="card-body" id="newtask-form">
     <!-- Task name input -->
     <div class="mb-6">
         <label class="form-label">Task Name</label>
@@ -14,6 +14,15 @@
         <textarea class="form-input" id="task-description" name="task-description"></textarea>
     </div>
 <!-- Task progress status select input -->
+<div class="form-group">
+    <label for="task-status">Task Progress Status</label>
+    <select>
+        <option name="task-status" value="{{task.status}}">Not started</option>
+        <option name="task-status" value="{{task.status}}">In progress</option>
+        <option name="task-status" value="{{task.status}}">Complete</option>
+    </select>
+    <input type="submit" class="form-input" id="task-status">
+    </div>
     <div class="mb-6">
         <button type="submit" class="btn btn-primary" id="newtask" form="newtask-form"><i class="bi bi-plus-square"></i> Add Task</button>
     </div>
