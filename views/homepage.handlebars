@@ -1,18 +1,15 @@
 <section>
     <div class="row align-items-center" id="homepage-header">
-        <h2>Hello, <span>{{username}}!</span></h2>
+        <h2><span>Welcome!</span></h2>
         <p>Add a new task or edit your tasks below</p> 
     </div>
-<div class="btn-container">                      
-    <button class="homepage-button" class="btn"><a href="/newtask" id="a-add-btn"><i class="bi bi-plus-square"></i> Add Task</a></button>
-</div>
 <!-- If the user has a task list, their tasks will be displayed here-->
 {{#if tasks.length}}
 {{#each tasks as |task|}}
 <div class="task-container">
         <input type="hidden" name="task-id" value="{{task.id}}"/>
     <div class="card">
-        <h2 class="card-title"><span>{{username}}</span>'s Task List</h2>
+        <h2 class="card-title"><span>{{req.body.username}}</span>'s Task List</h2>
         <div class="card-header">
             <a class="link" href="/edittask/{{task.id}}">{{task.title}}</a>
         </div>
@@ -21,6 +18,36 @@
 </section>
 {{/each}}   
 {{/if}}
+<div class="card">
+    <h2 class="card-header">Add New Task</h2>
+
+<!-- Form to create a new task -->
+<form class="card-body" id="newtask-form">
+    <!-- Task name input -->
+    <div class="mb-6">
+        <label class="form-label">Task Name</label>
+        <textarea class="form-textarea form-input" name="task-title"></textarea>
+    </div>
+<!-- Task description/notes input -->
+    <div class="form-group">
+        <label for="task-description">Additional notes: </label>
+        <textarea class="form-input" id="task-description" name="task-description"></textarea>
+    </div>
+<!-- Task progress status select input -->
+<div class="form-group">
+    <label for="task-status">Task Progress Status</label>
+    <select>
+        <option name="task-status" value="{{task.status}}">Not started</option>
+        <option name="task-status" value="{{task.status}}">In progress</option>
+        <option name="task-status" value="{{task.status}}">Complete</option>
+    </select>
+    <input type="submit" class="form-input" id="task-status">
+    </div>
+    <div class="mb-6">
+        <button type="submit" class="btn btn-primary" id="newtask" form="newtask-form"><i class="bi bi-plus-square"></i> Add Task</button>
+    </div>
+</form>
+</div>
 <!-- Bubbles! -->
 <div class="wrapper">
         <div><span class="dot"></span></div>
@@ -33,3 +60,5 @@
         <div><span class="dot"></span></div>
         <div><span class="dot"></span></div>
 </div>
+<!-- JS script with newtask form handler logic-->
+<script src="/js/newtask.js"></script>
