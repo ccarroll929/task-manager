@@ -48,6 +48,10 @@ User.init({
 			          isAlphanumeric: true
 		          }
 	          },
+	          list_id: {
+		          type:      DataTypes.STRING,
+		          unique:    true,
+	          },
 	          // Password
 	          password: {
 		          type:      DataTypes.STRING,

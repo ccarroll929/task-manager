@@ -2,9 +2,9 @@ const newtaskFormHandler = async (event) => {
     event.preventDefault();
 
     // Getting values from user input
-    const title = document.querySelector('#task-title').value;
-    const description = document.querySelector('#task-description').value; 
-    const status = document.querySelector('#task-status').value;
+    const title = document.querySelector('input[name="task-title"]').value;
+    const description = document.querySelector('input[name="task-description"]').value; 
+    const status = document.querySelector('select[name="task-status"]').value;
 
     // Makes a POST request to /newTask with task title, desc, status
     const response = await fetch('/api/task', {
