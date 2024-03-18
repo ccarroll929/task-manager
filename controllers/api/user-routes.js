@@ -26,11 +26,11 @@ router.post('/signup', async (req, res) => {
 		      }
 
 		      // Create a new Task List
-		      const taskList = await googleTasks.createTaskList(user.username);
-		      req.body.taskList = taskList.id;
+		      const taskList    = await googleTasks.createTaskList(req.body.username);
+		      req.body.taskList = taskList.list_id;
 
 		      // Create the user with the provided data
-		      const userData    = await User.create(req.body);
+		      const userData = await User.create(req.body);
 
 		      // Assuming userData has the password field, sanitize it before sending the response
 		      const sanitizedUserData = {...userData.toJSON()};
@@ -71,7 +71,7 @@ router.post('/signup', async (req, res) => {
 				  return;
 			  }
 
-			  req.session.save(() => {
+			  await req.session.save(() => {
 				  req.session.user_id   = userData.id;
 				  req.session.logged_in = true;
 
