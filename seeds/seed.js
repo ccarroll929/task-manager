@@ -3,9 +3,9 @@ const fs                 = require('fs').promises;
 const sequelize          = require('../config/connection');
 const User               = require('../models/User');
 
-const RedisCache         = require('redis');
+const RedisCache         = require('../utils/redis');
 const GoogleTasksService = require('../services/GoogleTasksService');
-const redis              = null; //new RedisCache();
+const redis              = new RedisCache();
 const googleTasks        = new GoogleTasksService(redis);
 
 //
