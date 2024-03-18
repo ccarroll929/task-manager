@@ -80,6 +80,25 @@ class GoogleTasksService {
 	}
 
 	/**
+	 * Create a new task list in Google Tasks.
+	 *
+	 * @param {string} title - The title of the new task list.
+	 * @throws Will throw an error if the request fails.
+	 * @return {object} - The created task list data.
+	 */
+	async createTaskList(title) {
+		try {
+			const response = await this.client.tasklists.insert({
+				                                                    title: title,
+			                                                    });
+			return response.data;
+		} catch (error) {
+			console.error('GoogleTasksService:createTaskList - Error:', error);
+			throw error;
+		}
+	}
+
+	/**
 	 * Delete a task on Google Tasks.
 	 *
 	 * @param {string} taskListId - The ID of the task list the task belongs to.
@@ -94,6 +113,23 @@ class GoogleTasksService {
 			                               });
 		} catch (error) {
 			console.error('GoogleTasksService:deleteTask - Error:', error);
+			throw error;
+		}
+	}
+
+	/**
+	 * Delete a task list in Google Tasks.
+	 *
+	 * @param {string} taskListId - The ID of the task list to delete.
+	 * @throws Will throw an error if the request fails.
+	 */
+	async deleteTaskList(taskListId) {
+		try {
+			await this.client.tasklists.delete({
+				                                   tasklist: taskListId
+			                                   });
+		} catch (error) {
+			console.error('GoogleTasksService:deleteTaskList - Error:', error);
 			throw error;
 		}
 	}
@@ -139,6 +175,22 @@ class GoogleTasksService {
 	}
 
 	/**
+	 * List all task lists in Google Tasks.
+	 *
+	 * @throws Will throw an error if the request fails.
+	 * @return {Object} - Data about all task lists.
+	 */
+	async listTaskLists() {
+		try {
+			const response = await this.client.tasklists.list();
+			return response.data;
+		} catch (error) {
+			console.error('GoogleTasksService:listTaskLists - Error:', error);
+			throw error;
+		}
+	}
+
+	/**
 	 * Update an existing task in Google Tasks.
 	 *
 	 * @param {string} taskListId - The ID of the task list containing the task to be updated.
@@ -159,6 +211,29 @@ class GoogleTasksService {
 			return response.data;
 		} catch (error) {
 			console.error('GoogleTasksService:updateTask - Error:', error);
+			throw error;
+		}
+	}
+
+	/**
+	 * Update a task list title in Google Tasks.
+	 *
+	 * @param {string} taskListId - The ID of the task list to update.
+	 * @param {string} newTitle - The new title of the task list.
+	 * @throws Will throw an error if the request fails.
+	 * @return {object} - The updated task list data.
+	 */
+	async updateTaskList(taskListId, newTitle) {
+		try {
+			const response = await this.client.tasklists.update({
+				                                                    tasklist: taskListId,
+				                                                    resource: {
+					                                                    title: newTitle,
+				                                                    },
+			                                                    });
+			return response.data;
+		} catch (error) {
+			console.error('GoogleTasksService:updateTaskList - Error:', error);
 			throw error;
 		}
 	}
