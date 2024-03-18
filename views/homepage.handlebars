@@ -3,9 +3,8 @@
         <h2>Hello, <span>{{username}}!</span></h2>
         <p>Add a new task or edit your tasks below</p> 
     </div>
-<br>
 <div class="btn-container">                      
-    <button class="homepage-button" id="newtask" type="submit" class="btn"><a href="/new-task" id="a-add-btn"><i class="bi bi-plus-square"></i> Add Task</a></button>
+    <button class="homepage-button" class="btn"><a href="/newtask.handlebars" id="a-add-btn"><i class="bi bi-plus-square"></i> Add Task</a></button>
 </div>
 <!-- If the user has a task list, their tasks will be displayed here-->
 {{#if tasks.length}}
@@ -15,7 +14,7 @@
     <div class="card">
         <h2 class="card-title"><span>{{username}}</span>'s Task List</h2>
         <div class="card-header">
-            <a class="link" href="/api/editTask/{{task.id}}">{{task.title}}</a>
+            <a class="link" href="/edittask/{{task.id}}">{{task.title}}</a>
         </div>
     </div>   
 </div>
@@ -34,4 +33,3 @@
         <div><span class="dot"></span></div>
         <div><span class="dot"></span></div>
 </div>
-

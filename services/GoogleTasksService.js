@@ -13,25 +13,25 @@ class GoogleTasksService {
 	 * Constructor for GoogleTasksService.
 	 * Authenticates with Google Tasks API and creates an API client.
 	 */
-	constructor(redis) {
-		// Check if this class has already been instantiated. There can be only one!
-		if (!RedisCache.instance) {
-			// Save the Redis connection.
-			this.cache  = redis;
-			const auth  = new google.auth.GoogleAuth({
-				                                         keyFile: './supersecretkey.json',
-				                                         scopes:  [
-					                                         'https://www.googleapis.com/auth/tasks',
-					                                         'https://www.googleapis.com/auth/tasks.readonly'
-				                                         ]
-			                                         });
-			// this.client points to the Google Tasks API client.
-			this.client = google.tasks({version: 'v1', auth: auth});
-			// Save the instance
-			GoogleTasksService.instance = this;
-		}
-		return GoogleTasksService.instance;
-	}
+	// constructor(redis) {
+	// 	// Check if this class has already been instantiated. There can be only one!
+	// 	if (!RedisCache.instance) {
+	// 		// Save the Redis connection.
+	// 		this.cache  = redis;
+	// 		const auth  = new google.auth.GoogleAuth({
+	// 			                                         keyFile: './supersecretkey.json',
+	// 			                                         scopes:  [
+	// 				                                         'https://www.googleapis.com/auth/tasks',
+	// 				                                         'https://www.googleapis.com/auth/tasks.readonly'
+	// 			                                         ]
+	// 		                                         });
+	// 		// this.client points to the Google Tasks API client.
+	// 		this.client = google.tasks({version: 'v1', auth: auth});
+	// 		// Save the instance
+	// 		GoogleTasksService.instance = this;
+	// 	}
+	// 	return GoogleTasksService.instance;
+	// }
 
 	/**
 	 * Mark a task as completed in Google Tasks

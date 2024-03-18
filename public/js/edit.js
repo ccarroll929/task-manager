@@ -7,7 +7,7 @@ const editHandler = async (event) => {
     const title = document.querySelector('input[name="task-title"]').value;
     const description = document.querySelector('input[name="task-description"]').value; 
     const status = document.querySelector('option[name="task-status"]').value;
-    const response = await fetch(`/api/editTask/${taskId}`, {
+    const response = await fetch(`/api/task-routes/${taskId}`, {
         method: 'PUT',
         body: JSON.stringify({
             taskId: id,
