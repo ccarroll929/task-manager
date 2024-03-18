@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 3000;
 // Redis and Google Tasks
 const RedisCache         = require('redis');
 const GoogleTasksService = require('./services/GoogleTasksService');
-const redis              = null; //new RedisCache();
+const redis              = new RedisCache();
 const googleTasks        = new GoogleTasksService(redis);
 
 // Database and session management

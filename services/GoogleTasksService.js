@@ -1,4 +1,7 @@
-const {google} = require('googleapis');
+const {google}     = require('googleapis');
+const {data, data} = require('express-session/session/cookie');
+const {response}   = require('express');
+const {JSON}       = require('sequelize');
 
 // Object being passed can be found here: https://developers.google.com/tasks/reference/rest/v1/tasks#Task
 
@@ -72,6 +75,19 @@ class GoogleTasksService {
 				                                                tasklist: taskListId,
 				                                                resource: task
 			                                                });
+
+			if (response.data) {
+				let cache = this.cache.get(taskListId);
+				cache     = JSON.parse(cache) ?? [];
+				cache.push(response.data);
+
+				// Cache with redis
+				await this.cache.set({
+					                     key:    taskListId,
+					                     value:  JSON.stringify(cache),
+					                     expire: 600 // Expire after 10 minutes
+				                     });
+			}
 			return response.data;
 		} catch (error) {
 			console.error('GoogleTasksService:createTask - Error:', error);
@@ -144,11 +160,23 @@ class GoogleTasksService {
 	 */
 	async getTask(taskListId, taskId) {
 		try {
-			const response = await this.client.tasks.get({
-				                                             tasklist: taskListId,
-				                                             task:     taskId
-			                                             });
-			return response.data;
+			let data = await this.cache.get(taskId);
+			if (!data) {
+				const response = await this.client.tasks.get({
+					                                             tasklist: taskListId,
+					                                             task:     taskId
+				                                             });
+
+				data = response.data;
+				// Cache with redis
+				await this.cache.set({
+					                     key:    taskId,
+					                     value:  JSON.stringify(data),
+					                     expire: 600 // Expire after 10 minutes
+				                     });
+			} else data = JSON.parse(data);
+			// Return the data
+			return data;
 		} catch (error) {
 			console.error('GoogleTasksService:getTask - Error:', error);
 			throw error;
@@ -164,10 +192,22 @@ class GoogleTasksService {
 	 */
 	async listTasks(taskListId) {
 		try {
-			const response = await this.client.tasks.list({
-				                                              tasklist: taskListId
-			                                              });
-			return response.data.items;
+			let data = await this.cache.get(taskListId);
+			if (!data) {
+				const response = await this.client.tasks.list({
+					                                              tasklist: taskListId
+				                                              });
+
+				data = response.data.items;
+				// Cache with redis
+				await this.cache.set({
+					                     key:    taskListId,
+					                     value:  JSON.stringify(data),
+					                     expire: 600 // Expire after 10 minutes
+				                     });
+			} else data = JSON.parse(data);
+			// Return the data
+			return data;
 		} catch (error) {
 			console.error('GoogleTasksService:getTasks - Error:', error);
 			throw error;
