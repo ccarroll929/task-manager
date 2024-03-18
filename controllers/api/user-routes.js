@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
       return res.status(200).json({
         user: sanitizedUserData,
         message: 'Signup successful',
-        redirect: '/homePage'
+        redirect: '/homepage'
       });
     } catch (err) {
       // Log and handle errors
@@ -82,5 +82,16 @@ router.post('/', async (req, res) => {
 		res.status(400).json(err);
 	}
 });
+
+// // Logout for user and redirect to mainPage.js
+// router.post('./mainPage-routes.js', (req, res) => {
+//     if (req.session.logged_in) {
+//         req.session.destroy(() => {
+//             res.redirect('/');
+//         });
+//     } else {
+//         res.status(404).end();
+//     }
+// });
 
 module.exports = router;

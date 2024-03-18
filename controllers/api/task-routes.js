@@ -4,6 +4,29 @@ const helpers = require('../../utils/helpers');
 const redis = require('redis');
 const client = redis.createClient();
 
+// GET all tasks for homepage
+router.get('/', async (req, res) => {
+    try {
+      const taskData = await Task.findAll({
+        include: [
+          {
+            model: User,
+            attributes: ['username'],
+          },
+        ],
+      });
+  
+      const tasks = taskData.map((task) => task.get({ plain: true }));
+  
+      res.render('homepage', {
+        tasks,
+        logged_in: req.session.logged_in,
+      });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 // Create new task
 router.post('/', async (req, res) => {
     try {
@@ -110,5 +133,28 @@ router.get('/:id', async (req, res) => {
       res.status(500).json(err);
     }
 });
+
+// REDUNDANT CODE??? vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+// Redirect to editTask
+router.get('/editTask', async (req, res) => {
+    try {
+      res.render('editTask', {
+        logged_in: req.session.logged_in,
+      });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
+// Redirect to newTask
+router.get('/newTask', async (req, res) => {
+    try {
+      res.render('newTask', {
+        logged_in: req.session.logged_in,
+      });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
   
 module.exports = router;
