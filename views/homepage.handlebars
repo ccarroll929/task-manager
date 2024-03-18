@@ -9,7 +9,7 @@
 <div class="task-container">
         <input type="hidden" name="task-id" value="{{task.id}}"/>
     <div class="card">
-        <h2 class="card-title"><span>{{req.body.username}}</span>'s Task List</h2>
+        <h2 class="card-title">My Task List:</h2>
         <div class="card-header">
             <a class="link" href="/edittask/{{task.id}}">{{task.title}}</a>
         </div>
@@ -18,32 +18,36 @@
 </section>
 {{/each}}   
 {{/if}}
-<div class="card">
+<div class="task-flex-container">
+<div class="newtask-container">
+    <div class="card">
     <h2 class="card-header">Add New Task</h2>
-
 <!-- Form to create a new task -->
-<form class="card-body" id="newtask-form">
+<form class="form" id="newtask-form" method="POST">
     <!-- Task name input -->
-    <div class="mb-6">
-        <label class="form-label">Task Name</label>
-        <textarea class="form-textarea form-input" name="task-title"></textarea>
+    <div class="taskform-group">
+        <label for="task-title" class="taskform-label">Task Name</label>
+        <textarea class="taskform-input" id="task-title" name="task-title"></textarea>
     </div>
 <!-- Task description/notes input -->
-    <div class="form-group">
-        <label for="task-description">Additional notes: </label>
-        <textarea class="form-input" id="task-description" name="task-description"></textarea>
+    <div class="taskform-group">
+        <label for="task-description" class="taskform-label">Additional notes: </label>
+        <textarea id="task-description" class="taskform-input" name="task-description"></textarea>
     </div>
 <!-- Task progress status select input -->
-<div class="form-group">
-    <label for="task-status">Task Progress Status</label>
-    <select>
-        <option name="task-status" value="{{task.status}}">Not started</option>
-        <option name="task-status" value="{{task.status}}">In progress</option>
-        <option name="task-status" value="{{task.status}}">Complete</option>
+<div class="taskform-group">
+    <label for="task-status" class="taskform-label">Task Progress Status</label>
+    <select id="task-status">
+        <option name="task-status" value="{{task.status}}" id="task-status">Not started</option>
+        <option name="task-status" value="{{task.status}}" id="task-status">In progress</option>
+        <option name="task-status" value="{{task.status}}" id="task-status">Complete</option>
     </select>
-    <input type="submit" class="form-input" id="task-status">
-    </div>
+</div>
+<div class="taskform-group">
+    <button class="btn btn" type="submit" id="newtask" form="newtask-form">Submit</button>
+</div>
 </form>
+</div>
 </div>
 <!-- Bubbles! -->
 <div class="wrapper">
