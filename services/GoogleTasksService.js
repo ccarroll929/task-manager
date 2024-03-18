@@ -74,7 +74,7 @@ class GoogleTasksService {
 			                                                });
 
 			if (response.data) {
-				let cache = this.cache.get(taskListId);
+				let cache = await this.cache.get(taskListId);
 				cache     = JSON.parse(cache) ?? [];
 				cache.push(response.data);
 

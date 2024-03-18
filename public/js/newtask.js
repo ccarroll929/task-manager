@@ -24,5 +24,39 @@ const newtaskFormHandler = async (event) => {
     }
 };
 
+async function fetchTasks() {
+    try {
+      const response = await fetch('/tasks');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const { taskList } = await response.json();
+      return taskList;
+    } catch (error) {
+      console.error('Failed to fetch tasks:', error);
+      throw error;
+    }
+  }
+  
+  function generateTaskHtml(task) {
+      return `
+          <div class="task">
+              <h2>${task.title}</h2>
+              <p>${task.notes}</p>
+              <a href="${task.webViewLink}">View in Google Tasks</a>
+          </div>
+      `;
+  }
+  fetchTasks().then(tasks => {
+      let taskContent = '';
+      tasks.forEach(task => {
+          taskContent += generateTaskHtml(task);
+      });
+      document.querySelector('#task-list').innerHTML = taskContent;
+  }).catch(error => {
+      // handle any errors, optionally update the HTML content with an error message
+      document.querySelector('#task-list').innerHTML = 'Failed to load tasks.';
+  });
+
 // Event handler
 document.querySelector('#newtask-form').addEventListener('submit', newtaskFormHandler);
