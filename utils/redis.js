@@ -16,19 +16,26 @@ class RedisCache {
 	 * @description Connects to Redis server during object instantiation
 	 */
 	constructor() {
-		const connectionData = {
-			host: process.env.REDIS_SERVER,
-			port: process.env.REDIS_PORT
-		};
+		// Check if this class has already been instantiated. There can be only one!
+		if (!RedisCache.instance) {
+			const connectionData = {
+				host: process.env.REDIS_SERVER,
+				port: process.env.REDIS_PORT
+			};
 
-		// If a user and password are used, use both, otherwise use
-		// password. If there is no password cache will ignore it.
-		if (process.env.REDIS_PASS.length) {
-			connectionData.password = (process.env.REDIS_USER) ? `${process.env.REDIS_USER}:${process.env.REDIS_PASS}`
-			                                                   : process.env.REDIS_PASS;
+			// If a user and password are used, use both, otherwise use
+			// password. If there is no password cache will ignore it.
+			if (process.env.REDIS_PASS.length) {
+				connectionData.password = (process.env.REDIS_USER) ? `${process.env.REDIS_USER}:${process.env.REDIS_PASS}`
+				                                                   : process.env.REDIS_PASS;
+			}
+
+			this.connect(connectionData);
+			// Save the instance
+			RedisCache.instance = this;
 		}
-
-		this.connect(connectionData);
+		// Return the instance.
+		return RedisCache.instance;
 	}
 
 	/***
