@@ -25,7 +25,7 @@ class RedisCache {
 
 			// If a user and password are used, use both, otherwise use
 			// password. If there is no password cache will ignore it.
-			if (process.env.REDIS_PASS.length) {
+			if (process.env.REDIS_PASS?.length) {
 				connectionData.password = (process.env.REDIS_USER) ? `${process.env.REDIS_USER}:${process.env.REDIS_PASS}`
 				                                                   : process.env.REDIS_PASS;
 			}
