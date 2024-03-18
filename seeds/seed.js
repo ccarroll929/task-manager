@@ -2,11 +2,9 @@
 const fs        = require('fs').promises;
 const sequelize = require('../config/connection');
 const User      = require('../models/User');
-const Task      = require('../models/Task');
 
 // File paths
 const paths = {
-	taskData: './seeds/TaskData.json',
 	userData: './seeds/UserData.json'
 };
 
@@ -21,11 +19,6 @@ const paths = {
 		const userData = JSON.parse(await fs.readFile(paths.userData, 'utf8'));
 		await User.bulkCreate(userData, {individualHooks: true});
 		console.log('\n----- USERS SEEDED -----\n');
-
-		// Seed post data
-		const taskData = JSON.parse(await fs.readFile(paths.taskData, 'utf8'));
-		await Task.bulkCreate(taskData);
-		console.log('\n----- TASKS SEEDED -----\n');
 
 		// Close the database connection
 		await sequelize.close();
