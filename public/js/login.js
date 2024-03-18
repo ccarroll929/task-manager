@@ -9,20 +9,20 @@ const loginFormHandler = async (event) => {
     const alphanumericRegex = /^[a-zA-Z0-9]+$/;
 
     // If username and/or password fields are empty, display an error message for the user
-    if (username === '' || password === '') {
-        errorMessage.textContent = '*Please enter both username and password.';
-        return;
-    }
-    // If username contains characters that are not alphanumeric, display an error message for the user
-    if (!alphanumericRegex.test(username)) {
-        errorMessage.textContent = '*Username can only contain letters and numbers.';
-        return; // Stop further execution
-    }
-    // If password is less than 8 characters, display an error message for the user
-    if (password.length < 8) {
-        errorMessage.textContent = '*Password must contain at least 8 characters'
-        return; 
-    }
+    // if (username === '' || password === '') {
+    //     errorMessage.textContent = '*Please enter both username and password.';
+    //     return;
+    // }
+    // // If username contains characters that are not alphanumeric, display an error message for the user
+    // if (!alphanumericRegex.test(username)) {
+    //     errorMessage.textContent = '*Username can only contain letters and numbers.';
+    //     return; // Stop further execution
+    // }
+    // // If password is less than 8 characters, display an error message for the user
+    // if (password.length < 8) {
+    //     errorMessage.textContent = '*Password must contain at least 8 characters'
+    //     return; 
+    // }
     // POST request with user login
     const response = await fetch ('/api/login', {
         method: 'POST',
