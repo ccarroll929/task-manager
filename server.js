@@ -25,14 +25,14 @@ const PORT = process.env.PORT || 3000;
 const RedisCache         = require('redis');
 const GoogleTasksService = require('./services/GoogleTasksService');
 const redis              = null; //new RedisCache();
-const tasks              = new GoogleTasksService(redis);
+const googleTasks        = new GoogleTasksService(redis);
 
 // Database and session management
 const sequelize      = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 // Set up sessions with cookies
-const sess           = {
+const sess = {
 	secret:            process.env.SESSION_SECRET,
 	cookie:            {
 		httpOnly: true,
@@ -53,7 +53,7 @@ app.engine('handlebars', hbs.engine)
    .set('views', dirs.views)
    .set('data', dirs.data)
    .set('redis', redis)
-   .set('tasks', tasks)
+   .set('googleTasks', googleTasks)
 	// Use sessions, parse JSON, serve static files and include routes.
    .use(session(sess))
    .use(express.json())

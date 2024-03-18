@@ -1,18 +1,5 @@
 
 // helpers.js
-
-const bcrypt = require('bcrypt');
-
-// User Authentication Helpers
-const hashPassword = async (password) => {
-  const saltRounds = 10;
-  return await bcrypt.hash(password, saltRounds);
-};
-
-const checkPassword = async (plainPassword, hashedPassword) => {
-  return await bcrypt.compare(plainPassword, hashedPassword);
-};
-
 // Database Helpers
 class DatabaseManager {
   constructor() {
@@ -63,7 +50,8 @@ function generateUniqueId() {
   return Math.random().toString(36).substring(2) + Date.now().toString(36);
 }
 
-module.exports = { hashPassword, checkPassword, DatabaseManager };
+module.exports = { DatabaseManager };
+// module.exports = { hashPassword, checkPassword, DatabaseManager };
 
 // Function to format a task for display
 function formatTask(task) {
