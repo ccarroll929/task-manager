@@ -13,25 +13,25 @@ class GoogleTasksService {
 	 * Constructor for GoogleTasksService.
 	 * Authenticates with Google Tasks API and creates an API client.
 	 */
-	// constructor(redis) {
-	// 	// Check if this class has already been instantiated. There can be only one!
-	// 	if (!RedisCache.instance) {
-	// 		// Save the Redis connection.
-	// 		this.cache  = redis;
-	// 		const auth  = new google.auth.GoogleAuth({
-	// 			                                         keyFile: './supersecretkey.json',
-	// 			                                         scopes:  [
-	// 				                                         'https://www.googleapis.com/auth/tasks',
-	// 				                                         'https://www.googleapis.com/auth/tasks.readonly'
-	// 			                                         ]
-	// 		                                         });
-	// 		// this.client points to the Google Tasks API client.
-	// 		this.client = google.tasks({version: 'v1', auth: auth});
-	// 		// Save the instance
-	// 		GoogleTasksService.instance = this;
-	// 	}
-	// 	return GoogleTasksService.instance;
-	// }
+	constructor(redis) {
+		// Check if this class has already been instantiated. There can be only one!
+		if (!GoogleTasksService.instance) {
+			// Save the Redis connection.
+			this.cache                  = redis;
+			const auth                  = new google.auth.GoogleAuth({
+				                                                         keyFile: './supersecretkey.json',
+				                                                         scopes:  [
+					                                                         'https://www.googleapis.com/auth/tasks'
+					                                                         // 'https://www.googleapis.com/auth/tasks.readonly'
+				                                                         ]
+			                                                         });
+			// this.client points to the Google Tasks API client.
+			this.client                 = google.tasks({version: 'v1', auth: auth});
+			// Save the instance
+			GoogleTasksService.instance = this;
+		}
+		return GoogleTasksService.instance;
+	}
 
 	/**
 	 * Mark a task as completed in Google Tasks
@@ -89,7 +89,7 @@ class GoogleTasksService {
 	async createTaskList(title) {
 		try {
 			const response = await this.client.tasklists.insert({
-				                                                    title: title,
+				                                                    title: title
 			                                                    });
 			return response.data;
 		} catch (error) {
@@ -125,9 +125,9 @@ class GoogleTasksService {
 	 */
 	async deleteTaskList(taskListId) {
 		try {
-			await this.client.tasklists.delete({
-				                                   tasklist: taskListId
-			                                   });
+			return await this.client.tasklists.delete({
+				                                          tasklist: taskListId
+			                                          });
 		} catch (error) {
 			console.error('GoogleTasksService:deleteTaskList - Error:', error);
 			throw error;
@@ -228,8 +228,8 @@ class GoogleTasksService {
 			const response = await this.client.tasklists.update({
 				                                                    tasklist: taskListId,
 				                                                    resource: {
-					                                                    title: newTitle,
-				                                                    },
+					                                                    title: newTitle
+				                                                    }
 			                                                    });
 			return response.data;
 		} catch (error) {
@@ -237,6 +237,31 @@ class GoogleTasksService {
 			throw error;
 		}
 	}
+
+	/**
+	 * Deletes all task lists associated with the account.
+	 * Retrieves all task lists using the `getAllTaskLists` method,
+	 * then deletes each one using the `deleteTaskList` method.
+	 * @async
+	 * @function deleteAllTaskLists
+	 * @throws {Error} When there's an error handling the request.
+	 */
+	async deleteAllTaskLists() {
+		try {
+			// Use your function to retrieve all task lists.
+			const taskLists   = await this.listTaskLists();
+			const taskListIds = taskLists.items.map(task => task.id).splice(1);
+
+			for (const task of taskListIds) {
+				const response = await this.deleteTaskList(task);
+				console.log(response);
+			}
+			// For each task list, call the deleteTaskList method.
+		} catch (error) {
+			console.error('Error deleting all task lists:', error);
+		}
+	}
+
 }
 
 // Export module
