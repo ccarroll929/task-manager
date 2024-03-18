@@ -2,14 +2,15 @@ const router  = require('express').Router();
 const {User}  = require('../../models');
 const helpers = require('../../utils/helpers');
 
-const googleTasks = require('../../services/GoogleTasksService');
-const redis       = require('../../utils/redis');
+const GoogleTasksService = require('../../services/GoogleTasksService');
+const googleTasks        = new GoogleTasksService();
+const redis              = require('../../utils/redis');
 
 
 // A GET route to get a list of tasks
 router.get('/', async (req, res) => {
 	      try {
-		      const taskList = await googleTasks.listTasks(req.session.user.username);
+		      const taskList = await googleTasks.listTasks(req.session.user.list_id);
 
 		      // Respond with status 200 (successful) and send the new task list, a success message.
 		      return res.status(200).json({
@@ -17,30 +18,31 @@ router.get('/', async (req, res) => {
 			                                  message:  'List of tasks successfully obtained'
 		                                  });
 	      } catch (error) {
+		      console.log(error);
 		      // Respond with status 400 (bad request) if there was an error and send the error as JSON.
-		      res.status(400).json(err);
+		      res.status(400).json(error);
 	      }
       })
-      // A GET route to get a task
-      .get('/:id', async (req, res) => {
-	      try {
-		      const taskList = await googleTasks.getTask(req.session.user.username);
+	// A GET route to get a task
+	  .get('/:id', async (req, res) => {
+		  try {
+			  const taskList = await googleTasks.getTask(req.session.user.list_id);
 
-		      // Respond with status 200 (successful) and send the new task list, a success message.
-		      return res.status(200).json({
-			                                  taskList: taskList,
-			                                  message:  'List of tasks successfully obtained'
-		                                  });
-	      } catch (error) {
-		      // Respond with status 400 (bad request) if there was an error and send the error as JSON.
-		      res.status(400).json(err);
-	      }
-      })
+			  // Respond with status 200 (successful) and send the new task list, a success message.
+			  return res.status(200).json({
+				                              taskList: taskList,
+				                              message:  'List of tasks successfully obtained'
+			                              });
+		  } catch (error) {
+			  // Respond with status 400 (bad request) if there was an error and send the error as JSON.
+			  res.status(400).json(err);
+		  }
+	  })
 	// A POST route to create a new task
 	  .post('/', async (req, res) => {
 		  try {
 			  // Create a new task in the Google Tasks service, using data from the request body
-			  const newTask = googleTasks.createTask(req.session.user.username, {
+			  const newTask = googleTasks.createTask(req.session.user.list_id, {
 				  title: req.body.title,
 				  notes: req.body.description
 			  });
@@ -62,7 +64,7 @@ router.get('/', async (req, res) => {
 	  .delete('/:id', async (req, res) => {
 		  try {
 			  // Delete the task in the Google Tasks service using the ID from the request parameters
-			  await googleTasks.deleteTask(req.session.user.username, req.params.id);
+			  await googleTasks.deleteTask(req.session.list_id, req.params.id);
 
 			  // Respond with status 200 (successful) and send a success message and a redirect URL as JSON back to the
 			  // user.
@@ -81,7 +83,7 @@ router.get('/', async (req, res) => {
 		  try {
 			  // Update the task in the Google Tasks service using the ID from the request parameters and data from the
 			  // request body
-			  const updatedTask = await googleTasks.updateTask(req.session.user.username, req.params.id, {
+			  const updatedTask = await googleTasks.updateTask(req.session.list_id, req.params.id, {
 				  title: req.body.title,
 				  notes: req.body.description
 			  });

@@ -23,15 +23,16 @@ const paths = {
 		await googleTasks.deleteAllTaskLists();
 		console.log('\n----- DATABASE SYNCED -----\n');
 
-		// Seed user data
 		const userData = JSON.parse(await fs.readFile(paths.userData, 'utf8'));
-		await User.bulkCreate(userData, {individualHooks: true});
 		// Seed Google Tasks
 		const taskIds = [];
-		for (let user of Object.values(userData)) {
+		for (let [key, user] of Object.entries(userData)) {
 			const response = await googleTasks.createTaskList(user.username);
+			user.list_id = response.id;
 			taskIds.push(response);
 		}
+		// Seed user data
+		await User.bulkCreate(userData, {individualHooks: true});
 		console.log('\n----- USERS SEEDED -----\n');
 
 		// Seed user data

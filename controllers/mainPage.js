@@ -3,6 +3,10 @@ const router = require('express').Router();
 const { User } = require('../models'); // PRETTY SURE WE DON'T NEED THIS, AS THIS FILE JUST HANDLES ROUTES FROM THE LANDING PAGE 
 const helpers = require('../utils/helpers'); // PRETTY SURE WE DON'T NEED THIS, AS THIS FILE JUST HANDLES ROUTES FROM THE LANDING PAGE
 
+const googleTasks = require('../services/GoogleTasksService');
+const redis       = require('../utils/redis');
+
+
 // Route to get mainPage
 router.get('/', async (req, res) => {
   try {
