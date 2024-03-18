@@ -8,7 +8,7 @@ const GoogleTasksService = require('../services/GoogleTasksService');
 const redis              = null; //new RedisCache();
 const googleTasks        = new GoogleTasksService(redis);
 
-
+//
 // File paths
 const paths = {
 	userData: './seeds/UserData.json',
