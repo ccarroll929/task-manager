@@ -25,12 +25,12 @@ This project is licensed under the MIT license.
 For more information about the license, click [here](https://opensource.org/licenses/MIT).
 
 ## Contributing
-[Please see Github Documentation on this topic.]()
+ Please see the [Github Documents](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project) on this topic. 
 
 ## Tests
 No tests written. 
 
 ## Questions
-If you have any questions, feel free to reach out to me:
-- Email: Joshuahale829@gmail.com
-- GitHub: [Sulxy](https://github.com/Sulxy)
+If you have any questions, feel free to reach out to us:
+- Email: Joshuahale829@gmail.com,
+- GitHub: [Sulxy](https://github.com/Sulxy),
