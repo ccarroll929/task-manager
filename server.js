@@ -4,67 +4,61 @@ const path = require('path');
 // External modules
 require('dotenv').config();
 const express = require('express');
-const routes  = require('./controllers');
+const routes = require('./controllers');
 const session = require('express-session');
 
 // Directory definitions
 const dirs = {
-	data:   path.join(__dirname, 'data'),
-	public: path.join(__dirname, 'public'),
-	views:  path.join(__dirname, 'views')
+    data: path.join(__dirname, 'data'),
+    public: path.join(__dirname, 'public'),
+    views: path.join(__dirname, 'views')
 };
 
 // Set up handlebars
 const handlebars = require('express-handlebars');
-const hbs        = handlebars.create({});
+const hbs = handlebars.create({});
 
 // Set up the application port
 const PORT = process.env.PORT || 3000;
 
-// Redis and Google Tasks
-const RedisCache         = require('./utils/redis');
-const GoogleTasksService = require('./services/GoogleTasksService');
-const redis              = new RedisCache();
-const googleTasks        = new GoogleTasksService(redis);
-
 // Database and session management
-const sequelize      = require('./config/connection');
+const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 // Set up sessions with cookies
 const sess = {
-	secret:            process.env.SESSION_SECRET,
-	cookie:            {
-		httpOnly: true,
-		maxAge:   24 * 60 * 60 * 1000, // 1 Day
-		sameSite: 'strict',
-		secure:   false
-	},
-	resave:            false,
-	saveUninitialized: true,
-	store:             new SequelizeStore({db: sequelize})
+    secret: process.env.SESSION_SECRET,
+    cookie: {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000, // 1 Day
+        sameSite: 'strict',
+        secure: false
+    },
+    resave: false,
+    saveUninitialized: true,
+    store: new SequelizeStore({ db: sequelize })
 };
 
 // Instantiate and configure Express
 const app = express();
 app.engine('handlebars', hbs.engine)
-	// Set the views and data directories
-   .set('view engine', 'handlebars')
-   .set('views', dirs.views)
-   .set('data', dirs.data)
-	// Use sessions, parse JSON, serve static files and include routes.
-   .use(session(sess))
-   .use(express.json())
-   .use(express.urlencoded({extended: true}))
-   .use(express.static(dirs.public))
-   .use(routes);
+    // Set the views and data directories
+    .set('view engine', 'handlebars')
+    .set('views', dirs.views)
+    .set('data', dirs.data)
+    // Use sessions, parse JSON, serve static files and include routes.
+    .use(session(sess))
+    .use(express.json())
+    .use(express.urlencoded({ extended: true }))
+    .use(express.static(dirs.public))
+    .use(routes);
 
 // Synchronize the session store
 sess.store.sync();
 
 // Start the server
 const server = app.listen(PORT, () => {
-	console.log(`Listening on port ${PORT}`);
+    console.log(`Listening on port ${PORT}`);
 });
 
 // Handle exiting gracefully for various exit signals.
@@ -72,16 +66,16 @@ const server = app.listen(PORT, () => {
 process.on('SIGINT', handleExit);
 process.on('SIGTERM', handleExit);
 process.on('uncaughtException', (err) => {
-	console.error('Uncaught exception', err);
-	handleExit();
+    console.error('Uncaught exception', err);
+    handleExit();
 });
 
 /**
  * Function to handle the server exit gracefully.
  */
 function handleExit() {
-	server.close(() => {
-		console.log('\nServer closed');
-		process.exit();
-	});
+    server.close(() => {
+        console.log('\nServer closed');
+        process.exit();
+    });
 }
