@@ -302,5 +302,5 @@ const redisClient = redis.createClient({
 });
 
 // Export module
-module.exports = GoogleTasksService;
+//  module.exports = GoogleTasksService;
 module.exports = new GoogleTasksService(redisClient);
