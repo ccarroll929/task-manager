@@ -1,6 +1,6 @@
-const { google } = require('googleapis');
-require('dotenv').config(); // Load environment variables from .env file
-const redis = require('redis');
+const {google}     = require('googleapis');
+
+// Object being passed can be found here: https://developers.google.com/tasks/reference/rest/v1/tasks#Task
 
 /**
  * GoogleTasksService handles operations with the Google Tasks API.
@@ -12,22 +12,21 @@ class GoogleTasksService {
 	/**
 	 * Constructor for GoogleTasksService.
 	 * Authenticates with Google Tasks API and creates an API client.
-	 * @param {object} redisClient - The Redis client.
 	 */
-	constructor(redisClient) {
+	constructor(redis) {
 		// Check if this class has already been instantiated. There can be only one!
 		if (!GoogleTasksService.instance) {
 			// Save the Redis connection.
-			if (!redisClient) {
-				throw new Error('Redis connection is required.');
-			}
-			this.cache = redisClient;
-			const auth = new google.auth.GoogleAuth({
-				keyFile: process.env.GOOGLE_API_KEY_FILE,
-				scopes: ['https://www.googleapis.com/auth/tasks']
-			});
+			this.cache                  = redis;
+			const auth                  = new google.auth.GoogleAuth({
+				                                                         keyFile: './supersecretkey.json',
+				                                                         scopes:  [
+					                                                         'https://www.googleapis.com/auth/tasks'
+					                                                         // 'https://www.googleapis.com/auth/tasks.readonly'
+				                                                         ]
+			                                                         });
 			// this.client points to the Google Tasks API client.
-			this.client = google.tasks({ version: 'v1', auth: auth });
+			this.client                 = google.tasks({version: 'v1', auth: auth});
 			// Save the instance
 			GoogleTasksService.instance = this;
 		}
@@ -36,6 +35,7 @@ class GoogleTasksService {
 
 	/**
 	 * Mark a task as completed in Google Tasks
+	 *
 	 * @param {string} taskListId - The ID of the task list containing the task.
 	 * @param {string} taskId - The ID of the task to mark as completed.
 	 * @throws Will throw an error if the request fails.
@@ -44,13 +44,13 @@ class GoogleTasksService {
 	async completeTask(taskListId, taskId) {
 		try {
 			const response = await this.client.tasks.update({
-				tasklist: taskListId,
-				task: taskId,
-				resource: {
-					status: 'completed',
-					completed: new Date().toISOString()
-				}
-			});
+				                                                tasklist: taskListId,
+				                                                task:     taskId,
+				                                                resource: {
+					                                                status:      'completed',
+					                                                'completed': new Date().toISOString()
+				                                                }
+			                                                });
 			return response.data;
 		} catch (error) {
 			console.error('GoogleTasksService:completeTask - Error:', error);
@@ -60,6 +60,7 @@ class GoogleTasksService {
 
 	/**
 	 * Create a task on Google Tasks.
+	 *
 	 * @param {string} taskListId - The ID of the task list to add the task to.
 	 * @param {object} task - The task object to be created. Must comply with Google Tasks API.
 	 * @throws Will throw an error if the request fails.
@@ -68,17 +69,21 @@ class GoogleTasksService {
 	async createTask(taskListId, task) {
 		try {
 			const response = await this.client.tasks.insert({
-				tasklist: taskListId,
-				resource: task
-			});
+				                                                tasklist: taskListId,
+				                                                resource: task
+			                                                });
 
 			if (response.data) {
 				let cache = await this.cache.get(taskListId);
-				cache = JSON.parse(cache) ?? [];
+				cache     = JSON.parse(cache) ?? [];
 				cache.push(response.data);
 
 				// Cache with redis
-				await this.cache.set(taskListId, JSON.stringify(cache), 600);
+				await this.cache.set({
+					                     key:    taskListId,
+					                     value:  JSON.stringify(cache),
+					                     expire: 600 // Expire after 10 minutes
+				                     });
 			}
 			return response.data;
 		} catch (error) {
@@ -97,8 +102,8 @@ class GoogleTasksService {
 	async createTaskList(title) {
 		try {
 			const response = await this.client.tasklists.insert({
-				title: title
-			});
+				                                                    title: title
+			                                                    });
 			return response.data;
 		} catch (error) {
 			console.error('GoogleTasksService:createTaskList - Error:', error);
@@ -116,9 +121,9 @@ class GoogleTasksService {
 	async deleteTask(taskListId, taskId) {
 		try {
 			await this.client.tasks.delete({
-				tasklist: taskListId,
-				task: taskId
-			});
+				                               tasklist: taskListId,
+				                               task:     taskId
+			                               });
 		} catch (error) {
 			console.error('GoogleTasksService:deleteTask - Error:', error);
 			throw error;
@@ -134,8 +139,8 @@ class GoogleTasksService {
 	async deleteTaskList(taskListId) {
 		try {
 			return await this.client.tasklists.delete({
-				tasklist: taskListId
-			});
+				                                          tasklist: taskListId
+			                                          });
 		} catch (error) {
 			console.error('GoogleTasksService:deleteTaskList - Error:', error);
 			throw error;
@@ -155,17 +160,17 @@ class GoogleTasksService {
 			let data = await this.cache.get(taskId);
 			if (!data) {
 				const response = await this.client.tasks.get({
-					tasklist: taskListId,
-					task: taskId
-				});
+					                                             tasklist: taskListId,
+					                                             task:     taskId
+				                                             });
 
 				data = response.data;
 				// Cache with redis
 				await this.cache.set({
-					key: taskId,
-					value: JSON.stringify(data),
-					expire: 600 // Expire after 10 minutes
-				});
+					                     key:    taskId,
+					                     value:  JSON.stringify(data),
+					                     expire: 600 // Expire after 10 minutes
+				                     });
 			} else data = JSON.parse(data);
 			// Return the data
 			return data;
@@ -184,19 +189,20 @@ class GoogleTasksService {
 	 */
 	async listTasks(taskListId) {
 		try {
+			console.log(taskListId);
 			let data = await this.cache.get(taskListId);
 			if (!data) {
 				const response = await this.client.tasks.list({
-					tasklist: taskListId
-				});
+					                                              tasklist: taskListId
+				                                              });
 
 				data = response.data.items;
 				// Cache with redis
 				await this.cache.set({
-					key: taskListId,
-					value: JSON.stringify(data),
-					expire: 600 // Expire after 10 minutes
-				});
+					                     key:    taskListId,
+					                     value:  JSON.stringify(data),
+					                     expire: 600 // Expire after 10 minutes
+				                     });
 			} else data = JSON.parse(data);
 			// Return the data
 			return data;
@@ -236,10 +242,10 @@ class GoogleTasksService {
 	async updateTask(taskListId, taskId, task) {
 		try {
 			const response = await this.client.tasks.update({
-				tasklist: taskListId,
-				task: taskId,
-				resource: task
-			});
+				                                                tasklist: taskListId,
+				                                                task:     taskId,
+				                                                resource: task
+			                                                });
 			return response.data;
 		} catch (error) {
 			console.error('GoogleTasksService:updateTask - Error:', error);
@@ -258,11 +264,11 @@ class GoogleTasksService {
 	async updateTaskList(taskListId, newTitle) {
 		try {
 			const response = await this.client.tasklists.update({
-				tasklist: taskListId,
-				resource: {
-					title: newTitle
-				}
-			});
+				                                                    tasklist: taskListId,
+				                                                    resource: {
+					                                                    title: newTitle
+				                                                    }
+			                                                    });
 			// Return response
 			return response.data;
 		} catch (error) {
@@ -282,7 +288,7 @@ class GoogleTasksService {
 	async deleteAllTaskLists() {
 		try {
 			// Use your function to retrieve all task lists.
-			const taskLists = await this.listTaskLists();
+			const taskLists   = await this.listTaskLists();
 			const taskListIds = taskLists.items.map(task => task.id).splice(1);
 
 			for (const task of taskListIds) {
@@ -293,14 +299,8 @@ class GoogleTasksService {
 			console.error('Error deleting all task lists:', error);
 		}
 	}
+
 }
 
-// Create a new Redis client
-const redisClient = redis.createClient({
-	host: process.env.REDIS_SERVER,
-	port: process.env.REDIS_PORT
-});
-
 // Export module
-//  module.exports = GoogleTasksService;
-module.exports = new GoogleTasksService(redisClient);
+module.exports = GoogleTasksService;

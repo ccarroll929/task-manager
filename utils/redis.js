@@ -9,6 +9,8 @@ const {query} = require('express');
  * @classdesc Establishes a connection with the Redis server.
  */
 class RedisCache {
+	static testMode = false;
+
 	db = undefined;
 
 	/***
@@ -30,7 +32,7 @@ class RedisCache {
 				                                                   : process.env.REDIS_PASS;
 			}
 
-			this.connect(connectionData);
+			if (!RedisCache.testMode) this.connect(connectionData);
 			// Save the instance
 			RedisCache.instance = this;
 		}
@@ -53,7 +55,8 @@ class RedisCache {
 	 * @returns {void}
 	 */
 	async connect(connectionData) {
-		// Create a connection to Redis.
+		if (!RedisCache.testMode) return null;
+			// Create a connection to Redis.
 		const db = await redis.createClient()
 		                      .on('error', err => {
 			                      // Log the error if there is one
@@ -92,6 +95,8 @@ class RedisCache {
 	 * @throws {Error} If the key doesn't exist in the database or if there's any other database related error.
 	 */
 	async get(key) {
+		if (!RedisCache.testMode) return null;
+
 		// If there is no database connection, don't do anything.
 		if (!this.db) return null;
 
@@ -111,6 +116,7 @@ class RedisCache {
 	 */
 	async scan(queryObj) {
 		// If there is no database connection, don't do anything.
+		if (!RedisCache.testMode) return null;
 		if (!this.db) return null;
 
 		queryObj = {
@@ -155,6 +161,7 @@ class RedisCache {
 	 * @returns {Promise<number | string>} The result of the set operation
 	 */
 	async set(setObj) {
+		if (!RedisCache.testMode) return null;
 		// If there is no database connection, don't do anything.
 		if (!this.db) return null;
 
